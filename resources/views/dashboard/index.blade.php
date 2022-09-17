@@ -10,8 +10,8 @@
     {{-- <div class="d-grid gap-2 col-6 mx-auto">
         <a class="btn btn-primary" href="{{ route('dashboard_add_staff') }}" type="button">เพิ่มสตาฟ</a>
     </div> --}}
-    @isset($massage)
-        <p class="text-danger">{{ $massage }}</p>
+    @isset($message)
+        <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($response)
         <table id="example" class="table">
@@ -24,9 +24,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $v->name }}</td>
                         <td>{{ $v->email }}</td>
                         <td>

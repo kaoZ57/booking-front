@@ -19,8 +19,8 @@
 
             </div>
             <div class="col">
-                @isset($massage)
-                    <p class="text-danger">{{ $massage }}</p>
+                @isset($message)
+                    <p class="text-danger">{{ $message }}</p>
                 @endisset
 
                 <form action="{{ route('outOfService_add') }}" method="post">

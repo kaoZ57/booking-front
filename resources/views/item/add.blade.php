@@ -18,8 +18,8 @@
 
             </div>
             <div class="col">
-                @isset($massage)
-                    <p class="text-danger">{{ $massage }}</p>
+                @isset($message)
+                    <p class="text-danger">{{ $message }}</p>
                 @endisset
 
                 <form action="{{ route('item_add') }}" method="post">
@@ -50,7 +50,7 @@
                         </label>
                     </div>
 
-                    {{-- <br>
+                    <br>
                     <label for="exampleFormControlTextarea2" class="form-label">สิง่ของนี้ต้องคืนไหม</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="is_not_return" id="flexRadioDefault1" value=0
@@ -64,7 +64,7 @@
                         <label class="form-check-label" for="flexRadioDefault4">
                             ไม่คืน
                         </label>
-                    </div> --}}
+                    </div>
 
                     <br>
                     <div class="col-12">

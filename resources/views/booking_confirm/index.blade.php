@@ -6,13 +6,13 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a aria-current>Booking Confirm</a></li>
+                    <li class="breadcrumb-item"><a aria-current>Confirm</a></li>
                 </ol>
             </nav>
         </div>
         <div class="col">
-            @isset(request()->massage)
-                <p class="text-danger">{{ request()->massage }}</p>
+            @isset(request()->message)
+                <p class="text-danger">{{ request()->message }}</p>
             @endisset
         </div>
     </div>
@@ -27,21 +27,31 @@
                     <th scope="col">end_date</th>
                     <th scope="col">verify_date</th>
                     <th scope="col">ดู</th>
-                    <th scope="col">อนุญาติ</th>
-                    <th scope="col">ไม่อนุญาติ</th>
+                    {{-- <th scope="col">อนุญาติ</th>
+                    <th scope="col">ไม่อนุญาติ</th> --}}
                 </tr>
             </thead>
             <tbody>
+                @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
-                        <td>{{ Str::limit($v->name, 20) }}</td>
-                        <td>{{ $v->status }}</td>
-                        <td>{{ substr($v->start_date, 0, 10) }}</td>
-                        <td>{{ substr($v->end_date, 0, 10) }}</td>
-                        <td>{{ substr($v->verify_date, 0, 10) }}</td>
-                        <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
-                        @if ($v->status == 'complete')
+                        @if ($v->status != 'complete' && $v->status != 'prepairing')
+                            <th scope="row">{{ $i++ }}</th>
+                            <td>{{ Str::limit($v->name, 20) }}</td>
+                            <td>{{ $v->status }}</td>
+                            <td>{{ $v->start_date }}</td>
+                            <td>{{ $v->end_date }}</td>
+                            <td>{{ $v->verify_date }}</td>
+                            @if ($v->status == 'prepairing')
+                                <td><button class="btn btn-primary" disabled>ดู</button></td>
+                            @else
+                                <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
+                            @endif
+                        @else
+                        @endif
+
+
+                        {{-- @if ($v->status == 'complete')
                             <td> <button type="submit" class="btn btn-success" disabled>เสร็จสิ้น</button></td>
                         @elseif ($v->status == 'approve')
                             <td>
@@ -87,7 +97,7 @@
                                     <button type="submit" class="btn btn-danger">ไม่อนุญาติ</button>
                                 </form>
                             </td>
-                        @endif
+                        @endif --}}
 
                         {{-- <td>{{ print_r($v->booking_item) }}</td> --}}
                     </tr>

@@ -6,7 +6,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a aria-current="page">Booking</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('order_view') }}">Order</a></li>
+                    <li class="breadcrumb-item"><a aria-current="page">Order Edit</a></li>
                 </ol>
             </nav>
         </div>
@@ -19,7 +20,7 @@
 
     <div class="container">
         <div class="row">
-            <h5>เพิ่มรายการ จอง</h5>
+            <h5>แก้ไขเวลาจอง</h5>
             <br><br><br><br><br><br><br>
         </div>
         <div class="row">
@@ -32,14 +33,15 @@
                     <p class="text-danger">{{ $message }}</p>
                 @endisset
 
-                <form action="{{ route('booking_add') }}" method="post">
+                <form action="{{ route('order_edit_booking') }}" method="post">
                     @csrf
+                    <input type="number" name="id" value={{ $response->id }} hidden>
                     <label for="birthday">เริ่ม:</label>
-                    <input type="datetime-local" id="myDatetimeField" name="start_date">
+                    <input type="datetime-local" value={{ $response->start_date }} name="start_date">
                     <br>
                     <br>
                     <label for="birthday">คืน:</label>
-                    <input type="datetime-local" name="end_date">
+                    <input type="datetime-local" value={{ $response->end_date }} name="end_date">
 
                     <br> <br>
                     <div class="col-12">
@@ -51,15 +53,3 @@
         </div>
     </div>
 @endsection
-
-<script>
-    window.addEventListener("load", function() {
-        var now = new Date();
-        var offset = now.getTimezoneOffset() * 60000;
-        var adjustedDate = new Date(now.getTime() - offset);
-        var formattedDate = adjustedDate.toISOString().substring(0, 16); // For minute precision
-        var datetimeField = document.getElementById("myDatetimeField");
-        datetimeField.value = formattedDate;
-        console.log(formattedDate);
-    });
-</script>

@@ -11,13 +11,22 @@
             <li class="breadcrumb-item"><a aria-current>Item in booking</a></li>
         </ol>
     </nav>
-    @isset($massage)
-        <p class="text-danger">{{ $massage }}</p>
+    @isset($message)
+        <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($response)
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <td><a class="btn btn-warning" href="{{ url('/order/add/item/' . $response->id) }}">จองเพิ่ม</a></td>
-        </div>
+        @if ($response->status == 'prepairing')
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-warning" href="{{ url('/order/view/edit/booking/' . $response->id) }}">แก้ไขวันจอง</a>
+                <a class="btn btn-warning" href="{{ url('/order/add/item/' . $response->id) }}">จองเพิ่ม</a>
+            </div>
+        @else
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-warning" disabled>แก้ไขวันจอง</button>
+                <button class="btn btn-warning" disabled>จองเพิ่ม</button>
+            </div>
+        @endif
+
         <h3>สถานะ {{ $response->status }}</h3>
         <h3>เริ่ม {{ $response->start_date }}</h3>
         <h3>วันคืน {{ $response->end_date }}</h3>
@@ -33,9 +42,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i = 1)
                 @foreach ($response->booking_item as $k => $v)
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $v->name }}</td>
                         <td>{{ $v->status }}</td>
                         <td>{{ $v->note_user }}</td>

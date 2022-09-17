@@ -11,8 +11,8 @@
             </nav>
         </div>
         <div class="col">
-            @isset(request()->massage)
-                <p class="text-danger">{{ request()->massage }}</p>
+            @isset(request()->message)
+                <p class="text-danger">{{ request()->message }}</p>
             @endisset
         </div>
     </div>
@@ -32,13 +32,14 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $v->status }}</td>
-                        <td>{{ substr($v->start_date, 0, 10) }}</td>
-                        <td>{{ substr($v->end_date, 0, 10) }}</td>
-                        <td>{{ substr($v->verify_date, 0, 10) }}</td>
+                        <td>{{ $v->start_date }}</td>
+                        <td>{{ $v->end_date }}</td>
+                        <td>{{ $v->verify_date }}</td>
                         @if ($v->status != 'prepairing')
                             <td><button class="btn btn-warning" disabled>จองเพิ่ม</button></td>
                         @else
@@ -52,8 +53,8 @@
                                 <form action="{{ route('order_confirm') }}" method="post">
                                     @csrf
                                     <input type="number" name="id" value={{ $v->id }} hidden>
-                                    <input type="datetime" name="start_date" value={{ $v->start_date }} hidden>
-                                    <input type="datetime" name="end_date" value={{ $v->end_date }} hidden>
+                                    <input type="text" name="start_date" value='{{ $v->start_date }}' hidden>
+                                    <input type="text" name="end_date" value='{{ $v->end_date }}' hidden>
                                     <button type="submit" class="btn btn-success">ยืนยัน</button>
                                 </form>
                             </td>

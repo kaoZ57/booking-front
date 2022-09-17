@@ -22,7 +22,7 @@ class ConfirmController extends Controller
         // dd($data->response);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('home');
             }
@@ -84,7 +84,7 @@ class ConfirmController extends Controller
         }
 
         $response = $data->response->booking[0];
-
+        // dd($response);
         return view('booking_confirm.view_item', compact('response'));
     }
 
@@ -125,15 +125,15 @@ class ConfirmController extends Controller
         $booking_item = json_decode($booking_item);
         // dd($booking_item);
 
-        $massage = $data->response->code->message;
+        $message = $data->response->code->message;
         if ($booking_item) {
             if ($booking_item->response->code->key != 101) {
-                return redirect()->route('confirm_view', compact('massage'));
+                return redirect()->route('confirm_view', compact('message'));
             }
         }
 
 
-        return redirect()->route('confirm_view', compact('massage'));
+        return redirect()->route('confirm_view', compact('message'));
     }
 
     function confirm_reject(Request $request)
@@ -172,13 +172,115 @@ class ConfirmController extends Controller
 
         // dd($data);
         // dd($booking_item->response);
-        $massage = $data->response->code->message;
+        $message = $data->response->code->message;
         if ($booking_item) {
             if ($booking_item->response->code->key != 101) {
-                return redirect()->route('confirm_view', compact('massage'));
+                return redirect()->route('confirm_view', compact('message'));
             }
         }
 
-        return redirect()->route('confirm_view', compact('massage'));
+        return redirect()->route('confirm_view', compact('message'));
+    }
+    function confirm_status_item(Request $request)
+    {
+
+        $note = ($request->note == null) ? "ให้ยืม" : $request->note;
+        // dd($request->id, $note, $request->status_id + 1);
+        $data  = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->patch(config('app.api_host') . '/api/v1/booking/update_items_by_staff', [
+            "booking_item" => [[
+                "id" => $request->id,
+                "note_owner" => $note,
+                "status_id" => $request->status_id + 1
+            ]]
+        ]);
+        $data  = json_decode($data);
+        if ($data) {
+            if ($data->response->code->key != 101) {
+                $message = $data->response->code->message;
+                dd($data->response);
+                return back()->with('message', $message);
+            }
+        }
+        return back();
+    }
+
+    function confirm_reject_item(Request $request)
+    {
+        $note = ($request->note == null) ? "ไม่ให้ยืม" : $request->note;
+        // dd($request->id, $note, $request->status_id - 1);
+
+        $data  = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->patch(config('app.api_host') . '/api/v1/booking/update_items_by_staff', [
+            "booking_item" => [[
+                "id" => $request->id,
+                "note_owner" => $note,
+                "status_id" => $request->status_id - 1
+            ]]
+        ]);
+        $data  = json_decode($data);
+        if ($data) {
+            if ($data->response->code->key != 101) {
+                $message = $data->response->code->message;
+
+                return back()->with('message', $message);
+            }
+        }
+        return back();
+    }
+
+    public function history()
+    {
+        $data = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->get(config('app.api_host') . '/api/v1/booking/get_bookings', [
+            "filter" => [
+                "status" => 'complete',
+            ]
+        ]);
+
+        $data  = json_decode($data);
+        // dd($data->response);
+
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return redirect()->route('home');
+            }
+        }
+        // dd($data->response->booking[0]->booking_item);
+
+
+        foreach ($data->response->booking as $key => $value) {
+            $users = Http::withHeaders(
+                [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'api_key' => config('app.api_key')
+                ]
+            )->get(config('app.api_host') . '/api/v1/user/get_all', [
+                "filter" => [
+                    "user_id" => $value->users_id
+                ]
+            ]);
+            $users  = json_decode($users);
+            // dd($data->response->booking[$key]);
+            $data->response->booking[$key]->name = $users->response->user[0]->name;
+        }
+
+        $response = $data->response->booking;
+        // dd($response);
+
+        return view('booking_confirm.index', compact('response'));
     }
 }

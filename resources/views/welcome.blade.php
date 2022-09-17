@@ -19,8 +19,8 @@
         <div class="col"></div>
     </div>
 
-    @isset($massage)
-        <p class="text-danger">{{ $massage }}</p>
+    @isset($message)
+        <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($itemdata)
         <table id="example" class="table">
@@ -35,9 +35,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i = 1)
                 @foreach ($itemdata as $k => $v)
                     <tr class="item{{ $v->id }}">
-                        <th scope="row">{{ $v->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $v->name }}</td>
                         <td> {{ Str::limit($v->description, 70) }}</td>
                         @if ($v->is_active == 1)

@@ -21,8 +21,8 @@
             <div class="col">
 
                 <br>
-                @isset($massage)
-                    <p class="text-danger">{{ $massage }}</p>
+                @isset($message)
+                    <p class="text-danger">{{ $message }}</p>
                 @endisset
 
                 <form action="{{ route('item_edit') }}" method="post">

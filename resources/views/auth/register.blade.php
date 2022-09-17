@@ -25,9 +25,9 @@
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" name="email">
-                                @isset($massage)
+                                @isset($message)
                                     <div id="emailHelp" class="form-text">
-                                        {{ $massage }}
+                                        {{ $message }}
                                     </div>
                                 @endisset
                             </div>

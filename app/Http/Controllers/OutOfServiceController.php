@@ -42,7 +42,7 @@ class OutOfServiceController extends Controller
         // dd($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('item_view');
             }
@@ -66,9 +66,10 @@ class OutOfServiceController extends Controller
         ]);
 
         $data  = json_decode($data);
+        // dd($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('item_view');
             }
@@ -81,6 +82,7 @@ class OutOfServiceController extends Controller
 
     public function outOfService_add(Request $request)
     {
+        $note = ($request->note == null) ? "ซ่อม" : $request->note;
         $data = Http::withHeaders(
             [
                 'Authorization' => 'Bearer ' . Session::get('token'),
@@ -89,10 +91,11 @@ class OutOfServiceController extends Controller
         )->post(config('app.api_host') . '/api/v1/out_of_service/add_item', [
             "out_of_service" => [
                 "item_id" => $request->id,
-                "note" => $request->note,
+                "note" => $note,
                 "amount" => $request->amount,
             ]
         ]);
+        $data  = json_decode($data);
 
         return redirect()->route('outOfService_view');
     }

@@ -10,8 +10,8 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         {{-- <a class="btn btn-success me-md-2" href="{{ route('item_add_view') }}" type="button">เพิ่มสิ่งของ</a> --}}
     </div>
-    @isset($massage)
-        <p class="text-danger">{{ $massage }}</p>
+    @isset($message)
+        <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($response)
         <table id="example" class="table">
@@ -26,9 +26,10 @@
             </thead>
             <tbody>
 
+                @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $v->name }}</td>
                         <td> {{ Str::limit($v->note, 70) }}</td>
                         <td>{{ $v->amount }}</td>

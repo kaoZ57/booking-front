@@ -25,7 +25,7 @@ class BookingController extends Controller
         $data  = json_decode($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('home');
             }
@@ -53,7 +53,7 @@ class BookingController extends Controller
         $data  = json_decode($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('home');
             }
@@ -67,7 +67,7 @@ class BookingController extends Controller
     public function booking_add(Request $request)
     {
         // dd($request->start_date, $request->end_date);
-
+        // dd(date("Y-m-d H:i:s", strtotime($request->start_date)));
         $data = Http::withHeaders(
             [
                 'Authorization' => 'Bearer ' . Session::get('token'),
@@ -76,17 +76,17 @@ class BookingController extends Controller
         )->post(config('app.api_host') . '/api/v1/booking/create_booking', [
             "booking" => [
                 "store_id" => 1,
-                "start_date" => $request->start_date,
-                "end_date" => $request->end_date,
+                "start_date" => date("Y-m-d H:i:s", strtotime($request->start_date)),
+                "end_date" => date("Y-m-d H:i:s", strtotime($request->end_date)),
                 "booking_item" => []
             ]
         ]);
 
         $data  = json_decode($data);
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
-                return redirect()->route('booking_view', compact('massage'));
+                return redirect()->route('booking_view', compact('message'));
             }
         }
 

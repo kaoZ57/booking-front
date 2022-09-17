@@ -19,7 +19,10 @@
                     <li><a href="{{ route('outOfService_view') }}" class="nav-link px-2 text-white">Service</a></li>
                 @endif
                 @if (Session::get('staff') == 'true')
-                    <li><a href="{{ route('confirm_view') }}" class="nav-link px-2 text-white">Booking-Confirm</a></li>
+                    <li><a href="{{ route('confirm_view') }}" class="nav-link px-2 text-white">Confirm</a></li>
+                @endif
+                @if (Session::get('staff') == 'true')
+                    <li><a href="{{ route('history') }}" class="nav-link px-2 text-white">History</a></li>
                 @endif
                 @if (Session::get('owner') == 'true')
                     <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white">Dashboard</a></li>
@@ -40,7 +43,6 @@
                 </form>
             @else
                 <div class="text-end">
-
                     <a type="button" href="{{ route('login_view') }}" class="btn btn-outline-light me-2">Login</a>
                     <a type="button" href="{{ route('register_view') }}" class="btn btn-warning">Sign-up</a>
                 </div>

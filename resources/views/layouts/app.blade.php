@@ -21,6 +21,15 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css">
 
+    <script src="/Areas/Development/dist/libraries/jquery/jquery.js"></script>
+    <script src="/Areas/Development/dist/modular/js/core.js" type="text/javascript"></script>
+    <link href="/Areas/Development/dist/modular/css/core.css" rel="stylesheet" type="text/css">
+    <link href="/Areas/Development/dist/modular/css/datepicker.css" rel="stylesheet" type="text/css">
+    <link href="/Areas/Development/dist/modular/css/timepicker.css" rel="stylesheet" type="text/css">
+    <link href="/Areas/Development/dist/modular/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <script src="/Areas/Development/dist/modular/js/datepicker.js"></script>
+    <script src="/Areas/Development/dist/modular/js/timepicker.js"></script>
+    <script src="/Areas/Development/dist/modular/js/datetimepicker.js"></script>
     <title>Booking API</title>
 </head>
 

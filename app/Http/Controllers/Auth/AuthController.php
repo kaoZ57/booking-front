@@ -30,9 +30,9 @@ class AuthController extends Controller
         $data  = json_decode($data);
 
         if ($data->response->code->key != 101) {
-            $massage = $data->response->code->message;
-            // dd($massage);
-            return view('auth.register', compact('massage'));
+            $message = $data->response->code->message;
+            // dd($message);
+            return view('auth.register', compact('message'));
         }
 
         return view('auth.login');
@@ -56,9 +56,9 @@ class AuthController extends Controller
         $data  = json_decode($data);
 
         if ($data->response->code->key != 101) {
-            $massage = $data->response->code->message;
-            // dd($massage);
-            return view('auth.login', compact('massage'));
+            $message = $data->response->code->message;
+            // dd($message);
+            return view('auth.login', compact('message'));
         }
 
         Session::put('token', $data->response->token);
@@ -79,7 +79,7 @@ class AuthController extends Controller
             }
         }
         // dd(Session::get('owner'), Session::get('staff'));
-        // Session::get('token');
+        Session::get('token');
 
         return redirect()->route('home');
     }

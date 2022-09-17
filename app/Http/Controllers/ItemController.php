@@ -21,7 +21,7 @@ class ItemController extends Controller
         $data  = json_decode($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('home');
             }
@@ -52,7 +52,7 @@ class ItemController extends Controller
                 "description" => $request->description,
                 "store_id" => 1,
                 "is_active" => $request->is_active,
-                "is_not_return" => 0,
+                "is_not_return" => $request->is_not_return,
                 "tag" => []
             ]
         ]);
@@ -60,10 +60,10 @@ class ItemController extends Controller
         $data  = json_decode($data);
         // dd($data);
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
-                return view('item.add', compact('massage'));
+                return view('item.add', compact('message'));
             }
         }
 
@@ -86,10 +86,10 @@ class ItemController extends Controller
         $data  = json_decode($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
-                return view('item.item', compact('massage'));
+                return view('item.item', compact('message'));
             }
         }
 
@@ -114,10 +114,10 @@ class ItemController extends Controller
 
         $data  = json_decode($data);
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
-                return view('item.index', compact('massage'));
+                return view('item.index', compact('message'));
             }
         }
 
@@ -140,10 +140,10 @@ class ItemController extends Controller
         $data  = json_decode($data);
 
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
-                return view('item.edit', compact('massage'));
+                return view('item.edit', compact('message'));
             }
         }
 
@@ -174,10 +174,10 @@ class ItemController extends Controller
 
         $data  = json_decode($data);
         if ($data) {
-            $massage = $data->response->code->message;
+            $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
-                return redirect()->route('item_view')->compact('massage');
+                return redirect()->route('item_view')->compact('message');
             }
         }
 
