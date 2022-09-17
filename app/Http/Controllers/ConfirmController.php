@@ -44,6 +44,10 @@ class ConfirmController extends Controller
             $users  = json_decode($users);
             // dd($data->response->booking[$key]);
             $data->response->booking[$key]->name = $users->response->user[0]->name;
+
+            if ($value->status_id == 1 || $value->status_id == 4) {
+                unset($data->response->booking[$key]);
+            }
         }
 
         $response = $data->response->booking;
@@ -281,6 +285,6 @@ class ConfirmController extends Controller
         $response = $data->response->booking;
         // dd($response);
 
-        return view('booking_confirm.index', compact('response'));
+        return view('history.index', compact('response'));
     }
 }

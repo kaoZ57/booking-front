@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use SebastianBergmann\Type\MixedType;
 
 class OrderController extends Controller
 {
@@ -65,6 +66,7 @@ class OrderController extends Controller
             ]);
             $item  = json_decode($item);
             // dd($data->response->booking[0]->booking_item);
+            $data->response->booking[0]->booking_item[$key]->item_id = $item->response->item[0]->id;
             $data->response->booking[0]->booking_item[$key]->name = $item->response->item[0]->name;
         }
 
@@ -180,6 +182,83 @@ class OrderController extends Controller
         // dd($data->response);
         // return redirect()->route('order_view');
         return  $this->order_item_view($request);
+        // return redirect()->back();
+        // return redirect()->url('order/add/item/' . $request->bookingid);
+    }
+
+    public function order_item_edit_view(Request $request)
+    {
+        $booking = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->get(config('app.api_host') . '/api/v1/booking/get_bookings', [
+            "filter" => [
+                "booking_id" => $request->booking_id,
+            ]
+        ]);
+
+        $booking  = json_decode($booking);
+
+        $item_id = 0;
+        foreach ($booking->response->booking[0]->booking_item as $key => $value) {
+            if ($value->id == $request->booking_item_id) {
+                $item_id = $value->item_id;
+                $booking_item = $value;
+            }
+        }
+        // dd($booking_item);
+        // dd($request->bookingid, $request->id);
+        $data = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->get(config('app.api_host') . '/api/v1/item/get_items', [
+            "filter" => [
+                "item_id" => $item_id
+            ]
+        ]);
+        $data  = json_decode($data);
+        $response = $data->response->item;
+        $bookingid = $request->bookingid;
+        // dd($data);
+        return view('order.edit_item_booking', compact('response', 'bookingid', 'booking_item'));
+    }
+    public function order_item_edit(Request $request)
+    {
+        // dd($request->booking_item_id, $request->booking_id, $request->amount, $request->note);
+
+        $booking_item["id"] = $request->booking_item_id;
+        $booking_item["note_user"] = (!$request->note) ? "ยืม" : $request->note;
+        $booking_item["amount"] = $request->amount;
+        // dd([(object)$booking_item]);
+        $data = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->patch(config('app.api_host') . '/api/v1/booking/update_items_by_customer', [
+            "booking_item" => [(object)$booking_item]
+        ]);
+        $data  = json_decode($data);
+
+        // dd($data);
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return redirect()->route('order_view', compact('message'));
+                // return redirect()->route('order_item_add_view', ["id" => $request->id, "bookingid" => $request->bookingid]);
+                // return $this->order_add_view($request->bookingid);
+            }
+        }
+        $request->id = $request->booking_id;
+        // dd($request);
+
+        // dd($data->response);
+        // return redirect()->route('order_view');
+        return $this->order_item_view($request);
         // return redirect()->back();
         // return redirect()->url('order/add/item/' . $request->bookingid);
     }

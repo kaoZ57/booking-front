@@ -44,6 +44,8 @@ Route::group(['middleware' => ['authapi']], function () {
     Route::get('/order/view/item/{id}', [OrderController::class, 'order_item_view'])->name('order_item_view');
     Route::get('/order/view/edit/booking/{id}', [OrderController::class, 'order_edit_booking_view'])->name('order_edit_booking_view');
     Route::post('/order/view/edit/booking', [OrderController::class, 'order_edit_booking'])->name('order_edit_booking');
+    Route::get('/order/view/edit/item', [OrderController::class, 'order_item_edit_view'])->name('order_item_edit_view');
+    Route::post('/order/view/edit/item', [OrderController::class, 'order_item_edit'])->name('order_item_edit');
 
     Route::get('/item', [ItemController::class, 'item_view'])->name('item_view');
 

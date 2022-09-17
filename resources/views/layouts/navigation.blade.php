@@ -36,7 +36,7 @@
 
 
             @if (Session::has('token'))
-                <a type="button" href="{{ route('order_view') }}" class="btn btn-outline-info me-2">ตะกร้า</a>
+                <a type="button" href="{{ route('order_view') }}" class="btn btn-outline-info me-2">รายการจอง</a>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-outline-light me-2">Logout</button>

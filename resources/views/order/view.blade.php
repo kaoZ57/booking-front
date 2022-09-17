@@ -39,6 +39,7 @@
                     <th scope="col">โน้ตผู้จอง</th>
                     <th scope="col">โน้ตร้าน</th>
                     <th scope="col">จำนวน</th>
+                    <th scope="col">แก้ไข</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +52,17 @@
                         <td>{{ $v->note_user }}</td>
                         <td>{{ $v->note_owner }}</td>
                         <td>{{ $v->amount }}</td>
+                        @if ($response->status == 'prepairing')
+                            <td>
+                                <form action="{{ route('order_item_edit_view') }}" method="get">
+                                    <input value={{ $v->id }} name="booking_item_id" hidden />
+                                    <input value={{ $response->id }} name="booking_id" hidden />
+                                    <button class="btn btn-warning" type="submit">แก้ไข</button>
+                                </form>
+                            </td>
+                        @else
+                            <td><button class="btn btn-warning" type="submit" disabled>แก้ไข</button> </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

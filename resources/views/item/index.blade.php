@@ -62,7 +62,7 @@
                         @if (Session::get('staff') == 'true')
                             <td><a class="btn btn-warning" href="{{ url('/item/edit/' . $v->id) }}">แก้ไข</a></td>
                             <td><a class="btn btn-primary" href="{{ url('/item/add/stock/' . $v->id) }}">เพิ่ม</a></td>
-                            <td><a class="btn btn-danger" href="{{ url('/outOfService/add/' . $v->id) }}">ส่งซ่อม</a></td>
+                            <td><a class="btn btn-danger" href="{{ url('/outOfService/add/' . $v->id) }}">ซ่อม</a></td>
                         @else
                         @endif
 

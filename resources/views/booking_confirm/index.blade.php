@@ -35,20 +35,20 @@
                 @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
-                        @if ($v->status != 'complete' && $v->status != 'prepairing')
-                            <th scope="row">{{ $i++ }}</th>
-                            <td>{{ Str::limit($v->name, 20) }}</td>
-                            <td>{{ $v->status }}</td>
-                            <td>{{ $v->start_date }}</td>
-                            <td>{{ $v->end_date }}</td>
-                            <td>{{ $v->verify_date }}</td>
-                            @if ($v->status == 'prepairing')
-                                <td><button class="btn btn-primary" disabled>ดู</button></td>
-                            @else
-                                <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
-                            @endif
+                        {{-- @if ($v->status != 'complete' && $v->status != 'prepairing') --}}
+                        <th scope="row">{{ $i++ }}</th>
+                        <td>{{ Str::limit($v->name, 20) }}</td>
+                        <td>{{ $v->status }}</td>
+                        <td>{{ $v->start_date }}</td>
+                        <td>{{ $v->end_date }}</td>
+                        <td>{{ $v->verify_date }}</td>
+                        @if ($v->status == 'prepairing')
+                            <td><button class="btn btn-primary" disabled>ดู</button></td>
                         @else
+                            <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
                         @endif
+                        {{-- @else
+                        @endif --}}
 
 
                         {{-- @if ($v->status == 'complete')
