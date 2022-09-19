@@ -14,7 +14,7 @@
     @isset($booking)
         <h4>ที่เลือกไว้</h4>
         <table class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
@@ -44,14 +44,15 @@
     <br><br>
     @isset($response)
         <h4>เลือกที่ต้องการเพื่ม</h4>
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
                     <th scope="col">รายละเอียด</th>
                     <th scope="col">จำนวน</th>
-                    <th scope="col">สถานะการคืน</th>
+                    <th scope="col">สถานะคืน</th>
                     <th scope="col">เพิ่ม</th>
                 </tr>
             </thead>

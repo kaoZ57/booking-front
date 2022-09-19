@@ -28,7 +28,7 @@
                         <div class="col-auto">
                             <input type="number" id="inputPassword6" class="form-control"
                                 aria-describedby="passwordHelpInline" name="amount" min="1"
-                                max='{{ $response[0]->amount }}'>
+                                max='{{ $response[0]->amount }}' required>
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">

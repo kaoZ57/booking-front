@@ -32,10 +32,18 @@ class OrderController extends Controller
 
         $data  = json_decode($data);
 
-        $response = $data->response->booking;
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->booking;
 
-
-        return view('order.index', compact('response'));
+                return view('order.index', compact('response'));
+            }
+        } else {
+            return back();
+        }
     }
 
     public function order_item_view($id)
@@ -70,9 +78,18 @@ class OrderController extends Controller
             $data->response->booking[0]->booking_item[$key]->name = $item->response->item[0]->name;
         }
 
-        $response = $data->response->booking[0];
-        // dd($response = $data->response->booking);
-        return view('order.view', compact('response'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->booking[0];
+                // dd($response = $data->response->booking);
+                return view('order.view', compact('response'));
+            }
+        } else {
+            return back();
+        }
     }
 
     public function order_add_view($id)
@@ -124,9 +141,18 @@ class OrderController extends Controller
             $booking->response->booking[0]->booking_item[$key]->name = $item->response->item[0]->name;
         }
 
-        $booking = $booking->response->booking[0];
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $booking = $booking->response->booking[0];
 
-        return view('order.view_add', compact('response', 'bookingid', 'booking'));
+                return view('order.view_add', compact('response', 'bookingid', 'booking'));
+            }
+        } else {
+            return back();
+        }
     }
 
     public function order_item_add_view(Request $request)
@@ -143,11 +169,21 @@ class OrderController extends Controller
             ]
         ]);
         $data  = json_decode($data);
-        $response = $data->response->item;
-        $bookingid = $request->bookingid;
 
-        // return redirect()->route('order_item_add_view');
-        return view('order.add_item_booking', compact('response', 'bookingid'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->item;
+                $bookingid = $request->bookingid;
+
+                // return redirect()->route('order_item_add_view');
+                return view('order.add_item_booking', compact('response', 'bookingid'));
+            }
+        } else {
+            return back();
+        }
     }
 
     public function order_item_add(Request $request)
@@ -179,10 +215,20 @@ class OrderController extends Controller
         $request->id = $request->bookingid;
         // dd($request);
 
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                return  $this->order_item_view($request);
+            }
+        } else {
+            return back();
+        }
         // dd($data->response);
         // return redirect()->route('order_view');
-        return  $this->order_item_view($request);
-        // return redirect()->back();
+
+        // return back();
         // return redirect()->url('order/add/item/' . $request->bookingid);
     }
 
@@ -221,10 +267,20 @@ class OrderController extends Controller
             ]
         ]);
         $data  = json_decode($data);
-        $response = $data->response->item;
-        $bookingid = $request->bookingid;
-        // dd($data);
-        return view('order.edit_item_booking', compact('response', 'bookingid', 'booking_item'));
+
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->item;
+                $bookingid = $request->bookingid;
+                // dd($data);
+                return view('order.edit_item_booking', compact('response', 'bookingid', 'booking_item'));
+            }
+        } else {
+            return back();
+        }
     }
     public function order_item_edit(Request $request)
     {
@@ -244,23 +300,19 @@ class OrderController extends Controller
         ]);
         $data  = json_decode($data);
 
-        // dd($data);
+        $request->id = $request->booking_id;
+        // dd($request);
+
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('order_view', compact('message'));
-                // return redirect()->route('order_item_add_view', ["id" => $request->id, "bookingid" => $request->bookingid]);
-                // return $this->order_add_view($request->bookingid);
+            } else {
+                return $this->order_item_view($request);
             }
+        } else {
+            return back();
         }
-        $request->id = $request->booking_id;
-        // dd($request);
-
-        // dd($data->response);
-        // return redirect()->route('order_view');
-        return $this->order_item_view($request);
-        // return redirect()->back();
-        // return redirect()->url('order/add/item/' . $request->bookingid);
     }
 
     public function order_confirm(Request $request)
@@ -299,9 +351,16 @@ class OrderController extends Controller
             ]
         ]);
         $data  = json_decode($data);
-        // dd($data->response);
-        return redirect()->route('order_view');
-        // return  redirect()->previous();
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                return redirect()->route('order_view');
+            }
+        } else {
+            return back();
+        }
     }
 
     public function order_edit_booking_view($id)
@@ -339,8 +398,17 @@ class OrderController extends Controller
         $data->response->booking[0]->start_date = date("Y-m-d\TH:i", strtotime($data->response->booking[0]->start_date));
         $data->response->booking[0]->end_date = date("Y-m-d\TH:i", strtotime($data->response->booking[0]->end_date));
 
-        // dd($response = $data->response->booking);
-        return view('order.edit_booking', compact('response'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                // dd($response = $data->response->booking);
+                return view('order.edit_booking', compact('response'));
+            }
+        } else {
+            return back();
+        }
     }
     public function order_edit_booking(Request $request)
     {
@@ -360,8 +428,73 @@ class OrderController extends Controller
             ]
         ]);
         $data  = json_decode($data);
-        // dd($data->response);
-        return $this->order_item_view($request->id);
-        // return redirect()->route('order_view');
+
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                // dd($data->response);
+                return $this->order_item_view($request->id);
+                // return redirect()->route('order_view');
+            }
+        } else {
+            return back();
+        }
+    }
+    public function order_item_delete(Request $request)
+    {
+        // dd($request->booking_id, $request->booking_item_id);
+
+        $booking = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->get(config('app.api_host') . '/api/v1/booking/get_bookings', [
+            "filter" => [
+                "booking_id" => $request->booking_id,
+            ]
+        ]);
+
+        $booking  = json_decode($booking);
+
+        $item_id = 0;
+        foreach ($booking->response->booking[0]->booking_item as $key => $value) {
+            if ($value->id == $request->booking_item_id) {
+                $item_id = $value->item_id;
+                $booking_item_data = $value;
+            }
+        }
+        // dd($booking_item_data);
+
+        $booking_item["id"] = $booking_item_data->id;
+        $booking_item["note_user"] =  $booking_item_data->note_user;
+        $booking_item["amount"] = 0;
+        // dd([(object)$booking_item]);
+
+        $data = Http::withHeaders(
+            [
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ]
+        )->patch(config('app.api_host') . '/api/v1/booking/update_items_by_customer', [
+            "booking_item" => [(object)$booking_item]
+        ]);
+        $data  = json_decode($data);
+
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                // dd($data->response);  
+                $request->id = $request->booking_id;
+                return back();
+                // return redirect()->route('order_view');
+            }
+        } else {
+            return back();
+        }
     }
 }

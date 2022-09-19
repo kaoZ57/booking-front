@@ -30,8 +30,9 @@
         <h3>สถานะ {{ $response->status }}</h3>
         <h3>เริ่ม {{ $response->start_date }}</h3>
         <h3>วันคืน {{ $response->end_date }}</h3>
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
@@ -40,6 +41,7 @@
                     <th scope="col">โน้ตร้าน</th>
                     <th scope="col">จำนวน</th>
                     <th scope="col">แก้ไข</th>
+                    <th scope="col">ลบ</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +64,20 @@
                             </td>
                         @else
                             <td><button class="btn btn-warning" type="submit" disabled>แก้ไข</button> </td>
+                        @endif
+
+                        @if ($response->status == 'prepairing')
+                            <td>
+                                <form action="{{ route('order_item_delete') }}" method="post"
+                                    onclick="return confirm('Are you sure?')">
+                                    @csrf
+                                    <input value={{ $v->id }} name="booking_item_id" hidden />
+                                    <input value={{ $response->id }} name="booking_id" hidden />
+                                    <button class="btn btn-danger" type="submit">ลบ</button>
+                                </form>
+                            </td>
+                        @else
+                            <td><button class="btn btn-danger" type="submit" disabled>ลบ</button> </td>
                         @endif
                     </tr>
                 @endforeach

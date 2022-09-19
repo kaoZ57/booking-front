@@ -35,11 +35,11 @@
                 <form action="{{ route('booking_add') }}" method="post">
                     @csrf
                     <label for="birthday">เริ่ม:</label>
-                    <input type="datetime-local" id="myDatetimeField" name="start_date">
+                    <input type="datetime-local" id="myDatetimeField" name="start_date" required>
                     <br>
                     <br>
                     <label for="birthday">คืน:</label>
-                    <input type="datetime-local" name="end_date">
+                    <input type="datetime-local" name="end_date" required>
 
                     <br> <br>
                     <div class="col-12">

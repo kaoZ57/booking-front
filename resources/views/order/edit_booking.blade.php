@@ -37,11 +37,11 @@
                     @csrf
                     <input type="number" name="id" value={{ $response->id }} hidden>
                     <label for="birthday">เริ่ม:</label>
-                    <input type="datetime-local" value={{ $response->start_date }} name="start_date">
+                    <input type="datetime-local" value={{ $response->start_date }} name="start_date" required>
                     <br>
                     <br>
                     <label for="birthday">คืน:</label>
-                    <input type="datetime-local" value={{ $response->end_date }} name="end_date">
+                    <input type="datetime-local" value={{ $response->end_date }} name="end_date" required>
 
                     <br> <br>
                     <div class="col-12">

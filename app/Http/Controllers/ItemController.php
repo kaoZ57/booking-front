@@ -23,13 +23,15 @@ class ItemController extends Controller
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
-                return redirect()->route('home');
+                return back();
+            } else {
+                $response = $data->response->item;
+                // dd($data);
+                return view('item.index', compact('response'));
             }
+        } else {
+            return back();
         }
-
-        $response = $data->response->item;
-        // dd($data);
-        return view('item.index', compact('response'));
     }
 
     //add
@@ -61,13 +63,15 @@ class ItemController extends Controller
         // dd($data);
         if ($data) {
             $message = $data->response->code->message;
-
             if ($data->response->code->key != 101) {
                 return view('item.add', compact('message'));
+            } else {
+                sleep(2);
+                return redirect()->route('item_view');
             }
+        } else {
+            return back();
         }
-
-        return redirect()->route('item_view');
     }
 
     //stock
@@ -90,12 +94,14 @@ class ItemController extends Controller
 
             if ($data->response->code->key != 101) {
                 return view('item.item', compact('message'));
+            } else {
+                $response = $data->response->item;
+                // dd($response);
+                return view('item.addStock', compact('response'));
             }
+        } else {
+            return back();
         }
-
-        $response = $data->response->item;
-        // dd($response);
-        return view('item.addStock', compact('response'));
     }
 
     public function item_add_stock(Request $request)
@@ -118,10 +124,12 @@ class ItemController extends Controller
 
             if ($data->response->code->key != 101) {
                 return view('item.index', compact('message'));
+            } else {
+                return redirect()->route('item_view');
             }
+        } else {
+            return back();
         }
-
-        return redirect()->route('item_view');
     }
 
     //edit
@@ -138,18 +146,21 @@ class ItemController extends Controller
             ]
         ]);
         $data  = json_decode($data);
+        // dd($data);
 
         if ($data) {
             $message = $data->response->code->message;
 
             if ($data->response->code->key != 101) {
                 return view('item.edit', compact('message'));
+            } else {
+                $response = $data->response->item;
+                // dd($response);
+                return view('item.edit', compact('response'));
             }
+        } else {
+            return back();
         }
-
-        $response = $data->response->item;
-        // dd($response);
-        return view('item.edit', compact('response'));
     }
 
     public function item_edit(Request $request)
@@ -178,9 +189,11 @@ class ItemController extends Controller
 
             if ($data->response->code->key != 101) {
                 return redirect()->route('item_view')->compact('message');
+            } else {
+                return redirect()->route('item_view');
             }
+        } else {
+            return back();
         }
-
-        return redirect()->route('item_view');
     }
 }

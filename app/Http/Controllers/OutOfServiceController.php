@@ -44,13 +44,15 @@ class OutOfServiceController extends Controller
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
-                return redirect()->route('item_view');
+                return back();
+            } else {
+                $response = $data->response->out_of_service;
+
+                return view('out_of_service.index', compact('response'));
             }
+        } else {;
+            return back();
         }
-
-        $response = $data->response->out_of_service;
-
-        return view('out_of_service.index', compact('response'));
     }
     public function outOfService_add_view($id)
     {
@@ -71,13 +73,15 @@ class OutOfServiceController extends Controller
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
-                return redirect()->route('item_view');
+                return back();
+            } else {
+                $response = $data->response->item;
+
+                return view('out_of_service.add', compact('response'));
             }
+        } else {
+            return back();
         }
-
-        $response = $data->response->item;
-
-        return view('out_of_service.add', compact('response'));
     }
 
     public function outOfService_add(Request $request)
@@ -97,7 +101,17 @@ class OutOfServiceController extends Controller
         ]);
         $data  = json_decode($data);
 
-        return redirect()->route('outOfService_view');
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                sleep(2);
+                return redirect()->route('outOfService_view');
+            }
+        } else {
+            return back();
+        }
     }
 
     public function outOfService_edit(Request $request)
@@ -113,7 +127,17 @@ class OutOfServiceController extends Controller
                 "ready_to_use" => 1,
             ]
         ]);
-
-        return redirect()->route('item_view');
+        $data  = json_decode($data);
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                sleep(2);
+                return redirect()->route('item_view');
+            }
+        } else {
+            return back();
+        }
     }
 }

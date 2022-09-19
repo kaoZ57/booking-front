@@ -35,9 +35,19 @@ class HomeController extends Controller
         ]);
 
         $itemdata  = json_decode($itemdata);
-        $itemdata = $itemdata->response->item;
-        // dd($itemdata);
 
-        return view('welcome', compact('storedata', 'itemdata'));
+
+        if ($itemdata && $storedata) {
+            $message = $itemdata->response->code->message;
+            if ($itemdata->response->code->key != 101) {
+                return back();
+            } else {
+                // dd($itemdata);
+                $itemdata = $itemdata->response->item;
+                return view('welcome', compact('storedata', 'itemdata'));
+            }
+        } else {
+            return back();
+        }
     }
 }

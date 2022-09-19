@@ -20,6 +20,9 @@ use App\Http\Controllers\ConfirmController;
 |
 */
 
+Route::get('/redirect', [AuthController::class, 'redirectToProvider'])->name('redirect');
+Route::get('/callback', [AuthController::class, 'handleProviderCallback']);
+
 Route::get('/register', [AuthController::class, 'register_view'])->name('register_view');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -46,6 +49,7 @@ Route::group(['middleware' => ['authapi']], function () {
     Route::post('/order/view/edit/booking', [OrderController::class, 'order_edit_booking'])->name('order_edit_booking');
     Route::get('/order/view/edit/item', [OrderController::class, 'order_item_edit_view'])->name('order_item_edit_view');
     Route::post('/order/view/edit/item', [OrderController::class, 'order_item_edit'])->name('order_item_edit');
+    Route::post('/order/view/delete/item', [OrderController::class, 'order_item_delete'])->name('order_item_delete');
 
     Route::get('/item', [ItemController::class, 'item_view'])->name('item_view');
 

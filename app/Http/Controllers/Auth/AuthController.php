@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -90,5 +92,112 @@ class AuthController extends Controller
         Session::forget('owner');
         Session::forget('staff');
         return redirect('/');
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+
+        $user = Socialite::driver('google')->user();
+        // dd($user);
+
+        $data = Http::withHeaders(
+            ['api_key' => config('app.api_key')]
+        )->post(config('app.api_host') . '/api/v1/auth/login', [
+            'email' => $user->email,
+            'password' => $user->id
+        ]);
+
+        $data  = json_decode($data);
+
+        // dd($data);
+        // dd($data->response->code->key == 101);
+
+        if ($data) {
+            if ($data->response->code->key == 101) {
+
+                Session::put('token', $data->response->token);
+
+                $datarole = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'api_key' => config('app.api_key')
+                ])->get(config('app.api_host') . '/api/v1/user/get_current');
+
+                $dataroles  = json_decode($datarole);
+                // dd($dataroles->response->user->roles);
+                foreach ($dataroles->response->user->roles as $value) {
+                    if ($value->name === 'staff') {
+                        Session::put('staff', 'true');
+                    }
+                    if ($value->name === 'owner') {
+                        Session::put('owner', 'true');
+                    }
+                }
+
+                return redirect()->route('home');
+            } else {
+                $register = Http::withHeaders(
+                    ['api_key' => config('app.api_key')]
+                )->post(config('app.api_host') . '/api/v1/auth/register', [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'password' => $user->id,
+                    'password_confirmation' => $user->id,
+                ]);
+                $register  = json_decode($register);
+                // dd($register->response->code->key);
+
+                if ($register->response->code->key != 101) {
+                    $message = $register->response->code->message;
+                    // dd($message);
+                    return view('auth.register', compact('message'));
+                }
+
+                $data = Http::withHeaders(
+                    ['api_key' => config('app.api_key')]
+                )->post(config('app.api_host') . '/api/v1/auth/login', [
+                    'email' => $user->email,
+                    'password' => $user->id
+                ]);
+
+                $data  = json_decode($data);
+                // dd($data);
+
+                Session::put('token', $data->response->token);
+
+                $datarole = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'api_key' => config('app.api_key')
+                ])->get(config('app.api_host') . '/api/v1/user/get_current');
+
+                $dataroles  = json_decode($datarole);
+                // dd($dataroles->response->user->roles);
+                foreach ($dataroles->response->user->roles as $value) {
+                    if ($value->name === 'staff') {
+                        Session::put('staff', 'true');
+                    }
+                    if ($value->name === 'owner') {
+                        Session::put('owner', 'true');
+                    }
+                }
+
+                return redirect()->route('home');
+            }
+        } else {
+            return back();
+        }
     }
 }

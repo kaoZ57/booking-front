@@ -18,14 +18,19 @@ class DashboardController extends Controller
         )->get(config('app.api_host') . '/api/v1/user/get_all');
         $data  = json_decode($data);
 
-        if ($data->response->code->key != 101) {
-            return HomeController::home_view();
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->user;
+                // dd($data->response->user);
+
+                return view('dashboard.index', compact('response'));
+            }
+        } else {
+            return back();
         }
-
-        $response = $data->response->user;
-        // dd($data->response->user);
-
-        return view('dashboard.index', compact('response'));
     }
 
     public function dashboard_add_staff(Request $request)
@@ -40,13 +45,16 @@ class DashboardController extends Controller
         ]);
         $data  = json_decode($data);
         // dd($data->response);
-
-        if ($data->response->code->key == 211) {
-            return $this->dashboard_view();
-        } elseif ($data->response->code->key != 101) {
-            return redirect()->route('home');
+        Session::put('staff', 'true');
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $this->dashboard_view();
+            }
         } else {
-            return $this->dashboard_view();
+            return back();
         }
     }
 }

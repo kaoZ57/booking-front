@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    <br><br><br><br><br>
     <div class="container">
         <div class="row">
-            <br><br><br><br><br><br><br>
+
         </div>
         <div class="row">
             <div class="col">
@@ -16,11 +17,12 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('login') }}" method="POST">
+
                             @csrf
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="email">
+                                    aria-describedby="emailHelp" name="email" required>
                                 @isset($message)
                                     <div id="emailHelp" class="form-text">
                                         {{ $message }}
@@ -29,7 +31,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                    required>
                             </div>
                             {{-- <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" name="password">
@@ -45,4 +48,5 @@
             </div>
         </div>
     </div>
+    <br><br><br><br><br><br>
 @endsection

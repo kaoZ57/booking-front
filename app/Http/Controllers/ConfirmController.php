@@ -21,15 +21,6 @@ class ConfirmController extends Controller
         $data  = json_decode($data);
         // dd($data->response);
 
-        if ($data) {
-            $message = $data->response->code->message;
-            if ($data->response->code->key != 101) {
-                return redirect()->route('home');
-            }
-        }
-        // dd($data->response->booking[0]->booking_item);
-
-
         foreach ($data->response->booking as $key => $value) {
             $users = Http::withHeaders(
                 [
@@ -50,10 +41,19 @@ class ConfirmController extends Controller
             }
         }
 
-        $response = $data->response->booking;
-        // dd($response);
-
-        return view('booking_confirm.index', compact('response'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->booking;
+                // dd($response);
+                return view('booking_confirm.index', compact('response'));
+            }
+        } else {
+            return back();
+        }
+        // dd($data->response->booking[0]->booking_item);
     }
 
     public function confirm_view_item($id)
@@ -87,9 +87,18 @@ class ConfirmController extends Controller
             $data->response->booking[0]->booking_item[$key]->name = $item->response->item[0]->name;
         }
 
-        $response = $data->response->booking[0];
-        // dd($response);
-        return view('booking_confirm.view_item', compact('response'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->booking[0];
+                // dd($response);
+                return view('booking_confirm.view_item', compact('response'));
+            }
+        } else {
+            return back();
+        }
     }
 
     function confirm_status(Request $request)
@@ -130,14 +139,15 @@ class ConfirmController extends Controller
         // dd($booking_item);
 
         $message = $data->response->code->message;
-        if ($booking_item) {
+        if ($booking_item || $data) {
             if ($booking_item->response->code->key != 101) {
                 return redirect()->route('confirm_view', compact('message'));
+            } else {
+                return redirect()->route('confirm_view', compact('message'));
             }
+        } else {
+            return back();
         }
-
-
-        return redirect()->route('confirm_view', compact('message'));
     }
 
     function confirm_reject(Request $request)
@@ -180,10 +190,12 @@ class ConfirmController extends Controller
         if ($booking_item) {
             if ($booking_item->response->code->key != 101) {
                 return redirect()->route('confirm_view', compact('message'));
+            } else {
+                return redirect()->route('confirm_view', compact('message'));
             }
+        } else {
+            return back();
         }
-
-        return redirect()->route('confirm_view', compact('message'));
     }
     function confirm_status_item(Request $request)
     {
@@ -257,14 +269,7 @@ class ConfirmController extends Controller
         $data  = json_decode($data);
         // dd($data->response);
 
-        if ($data) {
-            $message = $data->response->code->message;
-            if ($data->response->code->key != 101) {
-                return redirect()->route('home');
-            }
-        }
         // dd($data->response->booking[0]->booking_item);
-
 
         foreach ($data->response->booking as $key => $value) {
             $users = Http::withHeaders(
@@ -282,9 +287,19 @@ class ConfirmController extends Controller
             $data->response->booking[$key]->name = $users->response->user[0]->name;
         }
 
-        $response = $data->response->booking;
-        // dd($response);
 
-        return view('history.index', compact('response'));
+        if ($data) {
+            $message = $data->response->code->message;
+            if ($data->response->code->key != 101) {
+                return back();
+            } else {
+                $response = $data->response->booking;
+                // dd($response);
+
+                return view('history.index', compact('response'));
+            }
+        } else {
+            return back();
+        }
     }
 }

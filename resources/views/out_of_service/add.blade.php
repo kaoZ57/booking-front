@@ -28,7 +28,7 @@
                     <input type="number" name="id" value={{ $response[0]->id }} hidden>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
-                        <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
+                        <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="note" required></textarea>
                     </div>
 
                     <div class="row g-3 align-items-center">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="number" id="inputPassword6" class="form-control"
-                                aria-describedby="passwordHelpInline" name="amount">
+                                aria-describedby="passwordHelpInline" name="amount" required>
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">

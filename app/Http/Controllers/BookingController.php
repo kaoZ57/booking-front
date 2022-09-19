@@ -55,13 +55,15 @@ class BookingController extends Controller
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
-                return redirect()->route('home');
+                return back();
+            } else {
+                $response = $data->response->item;
+                // dd($response);
+                return view('booking.add', compact('response'));
             }
+        } else {
+            return back();
         }
-
-        $response = $data->response->item;
-        // dd($response);
-        return view('booking.add', compact('response'));
     }
 
     public function booking_add(Request $request)
@@ -87,10 +89,14 @@ class BookingController extends Controller
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return redirect()->route('booking_view', compact('message'));
+            } else {
+                return redirect()->route('order_view');
             }
+        } else {
+            return back();
         }
 
         // return redirect()->route('order_view');
-        return redirect()->route('order_view');
+
     }
 }

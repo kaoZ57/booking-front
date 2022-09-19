@@ -10,8 +10,7 @@
     </nav>
     <div class="container">
         <div class="row">
-            <h5>เพิ่มจำนวน</h5>
-            <h5>{{ $response[0]->name }}</h5>
+            <h5>เพิ่มจำนวน {{ $response[0]->name }}</h5>
             <br><br><br><br><br><br><br>
         </div>
         <div class="row">
@@ -35,7 +34,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="number" id="inputPassword6" class="form-control"
-                                aria-describedby="passwordHelpInline" name="amount" min="1">
+                                aria-describedby="passwordHelpInline" name="amount" min="1" required>
                         </div>
                         <div class="col-auto">
                             <input type="number" name="id" value={{ $response[0]->id }} hidden>

@@ -27,12 +27,12 @@
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">ชื่อ</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
-                            maxlength="255">
+                            maxlength="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
                         <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="description"
-                            maxlength="255"></textarea>
+                            maxlength="100"></textarea>
                     </div>
 
                     <label for="exampleFormControlTextarea1" class="form-label">เปิดให้จองไหม</label>

@@ -17,15 +17,16 @@
         </div>
     </div>
     @isset($response)
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ผู้จอง</th>
                     <th scope="col">status</th>
-                    <th scope="col">start_date</th>
-                    <th scope="col">end_date</th>
-                    <th scope="col">verify_date</th>
+                    <th scope="col">วันเริ่มยืม</th>
+                    <th scope="col">วันที่ยืม</th>
+                    <th scope="col">วันอนุมัติ</th>
                     <th scope="col">ดู</th>
                     {{-- <th scope="col">อนุญาติ</th>
                     <th scope="col">ไม่อนุญาติ</th> --}}
@@ -42,11 +43,9 @@
                         <td>{{ $v->start_date }}</td>
                         <td>{{ $v->end_date }}</td>
                         <td>{{ $v->verify_date }}</td>
-                        @if ($v->status == 'prepairing')
-                            <td><button class="btn btn-primary" disabled>ดู</button></td>
-                        @else
-                            <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
-                        @endif
+                        <td>
+                            <a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a>
+                        </td>
                         {{-- @else
                         @endif --}}
 

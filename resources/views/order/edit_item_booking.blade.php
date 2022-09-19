@@ -28,7 +28,7 @@
                         <div class="col-auto">
                             <input type="number" id="inputPassword6" class="form-control"
                                 aria-describedby="passwordHelpInline" name="amount" min="1"
-                                max='{{ $response[0]->amount }}' value={{ $booking_item->amount }}>
+                                max='{{ $response[0]->amount }}' value={{ $booking_item->amount }} required>
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
@@ -38,7 +38,7 @@
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">note</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1" name="note"
-                                value={{ $booking_item->note_user }}>
+                                value={{ $booking_item->note_user }} required>
                             <input type="number" name="booking_id" value={{ $booking_item->booking_id }} hidden>
                             <input name="booking_item_id" value={{ $booking_item->id }} hidden>
                         </div>

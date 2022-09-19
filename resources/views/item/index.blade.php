@@ -22,14 +22,15 @@
         <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($response)
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
                     <th scope="col">รายละเอียด</th>
                     <th scope="col">สถานะ</th>
-                    <th scope="col">สถานะการคืน</th>
+                    <th scope="col">สถานะคืน</th>
                     <th scope="col">จำนวน</th>
                     @if (Session::get('staff') == 'true')
                         <th scope="col">แก้ไข</th>
@@ -37,7 +38,6 @@
                         <th scope="col">ส่งซ่อม</th>
                     @else
                     @endif
-
                 </tr>
             </thead>
             <tbody>
@@ -49,22 +49,35 @@
                         <td>{{ $v->name }}</td>
                         <td> {{ Str::limit($v->description, 70) }}</td>
                         @if ($v->is_active == 1)
-                            <td class="text-success">เปิดจอง</td>
+                            <td class="text-success">
+                                <span class="badge badge-success rounded-pill d-inline">เปิดจอง</span>
+                            </td>
                         @else
-                            <td class="text-danger">ปิดจอง</td>
+                            <td class="text-danger">
+                                <span class="badge badge-danger rounded-pill d-inline">ปิดจอง</span>
+                            </td>
                         @endif
                         @if ($v->is_not_return == 1)
-                            <td class="text-primary">ไม่ต้องคืน</td>
+                            <td class="text-primary">
+                                <center><span class="badge badge-danger rounded-pill d-inline">ไม่คืน</span>
+                            </td>
                         @else
-                            <td class="text-success">คืน </td>
+                            <td class="text-success">
+                                <center><span class="badge badge-success rounded-pill d-inline">คืน</span>
+                            </td>
                         @endif
-                        <td>{{ $v->amount }}</td>
-                        @if (Session::get('staff') == 'true')
-                            <td><a class="btn btn-warning" href="{{ url('/item/edit/' . $v->id) }}">แก้ไข</a></td>
-                            <td><a class="btn btn-primary" href="{{ url('/item/add/stock/' . $v->id) }}">เพิ่ม</a></td>
-                            <td><a class="btn btn-danger" href="{{ url('/outOfService/add/' . $v->id) }}">ซ่อม</a></td>
-                        @else
-                        @endif
+                        <td>
+                            {{ $v->amount }}
+                        </td>
+                        <td>
+                            <center><a class="btn btn-warning" href="{{ url('/item/edit/' . $v->id) }}">แก้ไข</a>
+                        </td>
+                        <td>
+                            <center><a class="btn btn-primary" href="{{ url('/item/add/stock/' . $v->id) }}">เพิ่ม</a>
+                        </td>
+                        <td>
+                            <center><a class="btn btn-danger" href="{{ url('/outOfService/add/' . $v->id) }}">ซ่อม</a>
+                        </td>
 
                     </tr>
                 @endforeach

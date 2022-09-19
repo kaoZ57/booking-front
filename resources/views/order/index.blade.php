@@ -17,14 +17,15 @@
         </div>
     </div>
     @isset($response)
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">สถานะ</th>
-                    <th scope="col">start_date</th>
-                    <th scope="col">end_date</th>
-                    <th scope="col">verify_date</th>
+                    <th scope="col">วันเริ่มยืม</th>
+                    <th scope="col">วันที่ยืม</th>
+                    <th scope="col">วันอนุมัติ</th>
                     <th scope="col">จองเพิ่ม</th>
                     <th scope="col">ดู</th>
                     <th scope="col">ยืนยัน</th>

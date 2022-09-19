@@ -14,8 +14,9 @@
         <p class="text-danger">{{ $message }}</p>
     @endisset
     @isset($response)
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>

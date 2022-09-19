@@ -35,8 +35,9 @@
                 </div> --}}
             </div>
         </div>
+        <br>
         <table id="example" class="table">
-            <thead>
+            <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
@@ -44,8 +45,12 @@
                     <th scope="col">โน้ตผู้จอง</th>
                     <th scope="col">โน้ตร้าน</th>
                     <th scope="col">จำนวน</th>
-                    {{-- <th scope="col">โน้ต</th> --}}
+                    <th scope="col">โน้ต</th>
                     <th scope="col">อนุญาติ</th>
+                    @if ($response->status != 'pending')
+                    @else
+                        <th scope="col">โน้ต</th>
+                    @endif
                     <th scope="col">ไม่อนุญาติ</th>
                 </tr>
             </thead>
@@ -112,7 +117,7 @@
                             <td><button type="submit" class="btn btn-danger" disabled>ไม่อนุญาติ</button></td>
                         @elseif ($v->status == 'returned')
                             <td><input type="text" class="form-control" id="exampleFormControlInput1" name="note"
-                                    value={{ $v->note_owner }} disabled> </td>
+                                    value={{ $v->note_owner }} disabled hid> </td>
                             <td><button type="submit" class="btn btn-success" disabled>คืนแล้ว</button></td>
                             <td><button type="submit" class="btn btn-danger" disabled>คืนแล้ว</button></td>
                         @endif
