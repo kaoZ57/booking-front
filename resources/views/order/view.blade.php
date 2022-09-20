@@ -19,11 +19,20 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <a class="btn btn-warning" href="{{ url('/order/view/edit/booking/' . $response->id) }}">แก้ไขวันจอง</a>
                 <a class="btn btn-warning" href="{{ url('/order/add/item/' . $response->id) }}">จองเพิ่ม</a>
+                <form action="{{ route('order_confirm') }}" method="post">
+                    @csrf
+                    <input type="number" name="id" value={{ $response->id }} hidden>
+                    <input type="text" name="start_date" value='{{ $response->start_date }}' hidden>
+                    <input type="text" name="end_date" value='{{ $response->end_date }}' hidden>
+                    <button type="submit" class="btn btn-success">ยืนยัน</button>
+                </form>
             </div>
         @else
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-warning" disabled>แก้ไขวันจอง</button>
                 <button class="btn btn-warning" disabled>จองเพิ่ม</button>
+                <button type="submit" class="btn btn-success" disabled>ยืนยัน</button>
+
             </div>
         @endif
 

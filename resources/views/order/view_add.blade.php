@@ -11,6 +11,23 @@
     @isset($message)
         <p class="text-danger">{{ $message }}</p>
     @endisset
+    @if ($booking->status == 'prepairing')
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-warning" href="{{ url('/order/view/edit/booking/' . $booking->id) }}">แก้ไขวันจอง</a>
+            <form action="{{ route('order_confirm') }}" method="post">
+                @csrf
+                <input type="number" name="id" value={{ $booking->id }} hidden>
+                <input type="text" name="start_date" value='{{ $booking->start_date }}' hidden>
+                <input type="text" name="end_date" value='{{ $booking->end_date }}' hidden>
+                <button type="submit" class="btn btn-success">ยืนยัน</button>
+            </form>
+        </div>
+    @else
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-warning" disabled>แก้ไขวันจอง</button>
+            <button type="submit" class="btn btn-success" disabled>ยืนยัน</button>
+        </div>
+    @endif
     @isset($booking)
         <h4>ที่เลือกไว้</h4>
         <table class="table">
@@ -69,14 +86,28 @@
                         @else
                             <td class="text-success">คืน </td>
                         @endif
-                        <td>
-                            <form action="{{ route('order_item_add_view') }}" method="post">
-                                @csrf
-                                <input type="number" name="id" value={{ $v->id }} hidden>
-                                <input type="number" name="bookingid" value={{ $bookingid }} hidden>
-                                <button type="submit" class="btn btn-warning">เพื่ม</button>
-                            </form>
-                        </td>
+
+                        @php($is_have = false)
+                        @foreach ($booking->booking_item as $k => $vv)
+                            @if ($vv->item_id == $v->id)
+                                {{ $is_have = true }}
+                            @endif
+                        @endforeach
+
+                        @if ($booking->status != 'prepairing')
+                            <td> <button type="submit" class="btn btn-warning" disabled>เพื่ม</button></td>
+                        @elseif ($is_have)
+                            <td> <button type="submit" class="btn btn-warning" disabled>เพื่ม</button></td>
+                        @else
+                            <td>
+                                <form action="{{ route('order_item_add_view') }}" method="post">
+                                    @csrf
+                                    <input type="number" name="id" value={{ $v->id }} hidden>
+                                    <input type="number" name="bookingid" value={{ $bookingid }} hidden>
+                                    <button type="submit" class="btn btn-warning"> เพื่ม</button>
+                                </form>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

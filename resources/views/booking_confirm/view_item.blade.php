@@ -47,6 +47,7 @@
                         <th scope="col">โน้ตผู้จอง</th>
                         <th scope="col">โน้ตร้าน</th>
                         <th scope="col">จำนวน</th>
+                        <th scope="col">คืน</th>
                         <th scope="col">โน้ต</th>
                         <th scope="col">อนุญาติ</th>
                         <th scope="col">ไม่อนุญาติ</th>
@@ -64,6 +65,15 @@
                             <td>{{ Str::limit($v->note_user, 20) }}</td>
                             <td>{{ $v->note_owner }}</td>
                             <td>{{ $v->amount }}</td>
+                            @if ($v->is_not_return == 1)
+                                <td class="text-primary">
+                                    <span class="badge badge-danger rounded-pill d-inline">ไม่คืน</span>
+                                </td>
+                            @else
+                                <td class="text-success">
+                                    <span class="badge badge-success rounded-pill d-inline">คืน</span>
+                                </td>
+                            @endif
                             @if ($v->status == 'reject')
                                 <td>
                                     <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>

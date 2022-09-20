@@ -31,6 +31,7 @@
                     <th scope="col">วันเริ่มยืม</th>
                     <th scope="col">วันที่ยืม</th>
                     <th scope="col">วันอนุมัติ</th>
+                    <th scope="col">จำนวนที่จอง</th>
                     <th scope="col">ดู</th>
                 </tr>
             </thead>
@@ -44,6 +45,9 @@
                         <td>{{ $v->start_date }}</td>
                         <td>{{ $v->end_date }}</td>
                         <td>{{ $v->verify_date }}</td>
+                        <td>
+                            <center>{{ count($v->booking_item) }}
+                        </td>
                         <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
                     </tr>
                 @endforeach

@@ -82,59 +82,6 @@
                         <td>
                             <center><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a>
                         </td>
-                        {{-- @else
-                        @endif --}}
-
-
-                        {{-- @if ($v->status == 'complete')
-                            <td> <button type="submit" class="btn btn-success" disabled>เสร็จสิ้น</button></td>
-                        @elseif ($v->status == 'approve')
-                            <td>
-                                <form action="{{ route('confirm_status') }}" method="post">
-                                    @csrf
-                                    <input type="number" name="id" value={{ $v->id }} hidden>
-                                    <input type="number" name="status_id" value={{ $v->status_id }} hidden>
-                                    <button type="submit" class="btn btn-success">กำลังยืม</button>
-                                </form>
-                            </td>
-                        @elseif ($v->status == 'pending')
-                            <td>
-                                <form action="{{ route('confirm_status') }}" method="post">
-                                    @csrf
-                                    <input type="number" name="id" value={{ $v->id }} hidden>
-                                    <input type="number" name="status_id" value={{ $v->status_id }} hidden>
-                                    <button type="submit" class="btn btn-success">อนุญาติ</button>
-                                </form>
-                            </td>
-                        @elseif ($v->status == 'prepairing')
-                            <td> <button type="submit" class="btn btn-success" disabled>รอผู้จองยืนยัน</button></td>
-                        @else
-                            <td>
-                                <form action="{{ route('confirm_status') }}" method="post">
-                                    @csrf
-                                    <input type="number" name="id" value={{ $v->id }} hidden>
-                                    <input type="number" name="status_id" value={{ $v->status_id }} hidden>
-                                    <button type="submit" class="btn btn-success">เปลี่ยนสถานะ</button>
-                                </form>
-                            </td>
-                        @endif
-
-                        @if ($v->status == 'complete')
-                            <td> <button type="submit" class="btn btn-danger" disabled>เสร็จสิ้น</button></td>
-                        @elseif ($v->status == 'prepairing')
-                            <td> <button type="submit" class="btn btn-danger" disabled>รอผู้จองยืนยัน</button></td>
-                        @else
-                            <td>
-                                <form action="{{ route('confirm_reject') }}" method="post">
-                                    @csrf
-                                    <input type="number" name="id" value={{ $v->id }} hidden>
-                                    <input type="number" name="status_id" value={{ $v->status_id }} hidden>
-                                    <button type="submit" class="btn btn-danger">ไม่อนุญาติ</button>
-                                </form>
-                            </td>
-                        @endif --}}
-
-                        {{-- <td>{{ print_r($v->booking_item) }}</td> --}}
                     </tr>
                 @endforeach
             </tbody>
