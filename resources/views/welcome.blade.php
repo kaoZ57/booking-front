@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col-6 col-md-1">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a aria-current="page">Home</a></li>
-                </ol>
-            </nav>
+            {{-- <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a aria-current="page">Home</a></li>
+                    </ol>
+                </nav> --}}
         </div>
         <div class="col-6 col-md-10">
             <h3>
@@ -26,7 +26,7 @@
     @endisset
     @isset($itemdata)
         <br>
-        <table id="example" class="table">
+        <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>

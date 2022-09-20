@@ -19,7 +19,6 @@ class HomeController extends Controller
 
         $storedata  = json_decode($storedata);
 
-        $storedata = $storedata->response->store;
         // dd($storedata);
 
         $itemdata = Http::withHeaders(
@@ -35,7 +34,7 @@ class HomeController extends Controller
         ]);
 
         $itemdata  = json_decode($itemdata);
-
+        $storedata = $storedata->response->store;
 
         if ($itemdata && $storedata) {
             $message = $itemdata->response->code->message;

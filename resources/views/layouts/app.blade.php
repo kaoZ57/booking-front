@@ -10,8 +10,8 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     {{-- <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/"> --}}
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css">
 
-    <script src="/Areas/Development/dist/libraries/jquery/jquery.js"></script>
+    {{-- <script src="/Areas/Development/dist/libraries/jquery/jquery.js"></script>
     <script src="/Areas/Development/dist/modular/js/core.js" type="text/javascript"></script>
     <link href="/Areas/Development/dist/modular/css/core.css" rel="stylesheet" type="text/css">
     <link href="/Areas/Development/dist/modular/css/datepicker.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
     <link href="/Areas/Development/dist/modular/css/datetimepicker.css" rel="stylesheet" type="text/css">
     <script src="/Areas/Development/dist/modular/js/datepicker.js"></script>
     <script src="/Areas/Development/dist/modular/js/timepicker.js"></script>
-    <script src="/Areas/Development/dist/modular/js/datetimepicker.js"></script>
+    <script src="/Areas/Development/dist/modular/js/datetimepicker.js"></script> --}}
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -44,6 +44,7 @@
         body {
             /* font-family: 'Noto Sans Thai', sans-serif; */
             font-family: 'Kanit', sans-serif;
+            height: 100%;
         }
     </style>
     <title>Chemistry booking</title>
@@ -75,15 +76,22 @@
 
     <br><br><br>
     <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted">
+    <footer class="text-center text-lg-start bg-light text-muted" style="flex-shrink: 0;">
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2021 Copyright:
+            ©
+            <span id="copyright">
+                <script>
+                    document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                </script>
+            </span> Copyright:
             <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            and Atiwan all right reserved
         </div>
         <!-- Copyright -->
     </footer>
-    <!-- Footer -->
+
+
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
 
@@ -105,6 +113,21 @@
                 order: [
                     [0, 'desc']
                 ],
+                "language": {
+                    "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
+                    "zeroRecords": "ไม่มีข้อมูล",
+                    "info": "แสดงหน้า _PAGE_ จาก _PAGES_ หน้า",
+                    "infoEmpty": "ไม่มีรายการ",
+                    "infoFiltered": "(filtered from _MAX_ total records)",
+                    "paginate": {
+                        "first": "หน้าแรก",
+                        "last": "สุดท้าย",
+                        "next": "ถัดไป",
+                        "previous": "ก่อนหน้า"
+                    },
+                    "search": "ค้นหา:",
+                    // "loadingRecords": "กำลังโหลด...",
+                }
             });
         });
     </script>

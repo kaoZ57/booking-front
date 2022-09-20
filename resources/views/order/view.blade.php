@@ -31,7 +31,7 @@
         <h3>เริ่ม {{ $response->start_date }}</h3>
         <h3>วันคืน {{ $response->end_date }}</h3>
         <br>
-        <table id="example" class="table">
+        <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>

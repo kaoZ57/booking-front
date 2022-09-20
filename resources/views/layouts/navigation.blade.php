@@ -3,10 +3,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-black-50 text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap" />
-                </svg>
+            <a class="navbar-brand me-2" href="{{ route('home') }}">
+                <img src="https://yt3.ggpht.com/ytc/AMLnZu9MdHSLzLsbd2U-tjkyQ4ZElacp32n2XID07_iXyBA=s900-c-k-c0x00ffffff-no-rj"
+                    height="40" alt="booking Logo" loading="lazy" style="margin-top: -1px;" />
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -39,10 +38,10 @@
             <div class="d-flex align-items-center">
                 @if (Session::has('token'))
                     <a type="button" href="{{ route('order_view') }}" class="btn btn-outline-info me-2">รายการจอง</a>
-                    <form action="{{ route('logout') }}" method="POST">
+                    {{-- <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-link px-3 me-2">Logout</button>
-                    </form>
+                    </form> --}}
                 @else
                     <a class="btn" href="{{ route('redirect') }}" role="button" style="text-transform:none">
                         <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
@@ -53,6 +52,32 @@
                     <a type="button" href="{{ route('login_view') }}" class="btn btn-link px-3 me-2">Owner
                         Login</a>
                     {{-- <a type="button" href="{{ route('register_view') }}" class="btn btn-warning">Sign-up</a> --}}
+                @endif
+
+
+                @if (Session::has('name'))
+                    <!-- Collapsible wrapper -->
+                    <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                        <!-- Left links -->
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <!-- Navbar dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    {{ Session::get('name') }}
+                                </a>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item ">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 @endif
 
             </div>

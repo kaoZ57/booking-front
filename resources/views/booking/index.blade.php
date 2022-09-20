@@ -11,37 +11,33 @@
             </nav>
         </div>
         <div class="col">
-            @isset(request()->message)
-                <p class="text-danger">{{ request()->message }}</p>
-            @endisset
+
         </div>
     </div>
 
     <div class="container">
         <div class="row">
             <h5>เพิ่มรายการ จอง</h5>
-            <br><br><br><br><br><br><br>
+
         </div>
         <div class="row">
             <div class="col">
 
             </div>
             <div class="col">
-
-                @isset($message)
-                    <p class="text-danger">{{ $message }}</p>
-                @endisset
-
+                <br><br><br><br><br><br><br>
                 <form action="{{ route('booking_add') }}" method="post">
                     @csrf
-                    <label for="birthday">เริ่ม:</label>
+                    <label for="start_date">เริ่ม:</label>
                     <input type="datetime-local" id="myDatetimeField" name="start_date" required>
                     <br>
                     <br>
-                    <label for="birthday">คืน:</label>
+                    <label for="end_date">คืน:</label>
                     <input type="datetime-local" name="end_date" required>
-
-                    <br> <br>
+                    <br><br>
+                    @isset(request()->message)
+                        <p class="text-danger">{{ request()->message }}</p>
+                    @endisset
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
@@ -50,6 +46,7 @@
             <div class="col"></div>
         </div>
     </div>
+    <br><br><br><br><br><br><br>
 @endsection
 
 <script>

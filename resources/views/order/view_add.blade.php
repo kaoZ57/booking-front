@@ -45,7 +45,7 @@
     @isset($response)
         <h4>เลือกที่ต้องการเพื่ม</h4>
         <br>
-        <table id="example" class="table">
+        <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>

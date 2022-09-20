@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65a8a762bb84c6c383ce20f567376d90",
+    "content-hash": "d719233e37cc66bb8e3afdce89a622ff",
     "packages": [
         {
             "name": "abgeo/json-to-popo",
@@ -7532,6 +7532,68 @@
                 }
             ],
             "time": "2022-01-24T18:55:24+00:00"
+        },
+        {
+            "name": "vrkansagara/lara-out-press",
+            "version": "2.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vrkansagara/LaraOutPress.git",
+                "reference": "8109d45e23251ef37003d01536ed073831f91838"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vrkansagara/LaraOutPress/zipball/8109d45e23251ef37003d01536ed073831f91838",
+                "reference": "8109d45e23251ef37003d01536ed073831f91838",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0|^8.0"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "^2.3",
+                "laravel/framework": "5.5.x || 8.0.x",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Vrkansagara\\LaraOutPress\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaraOutPress": "Vrkansagara\\LaraOutPress\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vrkansagara\\LaraOutPress\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vallabh Kansagara",
+                    "email": "vrkansagara@gmail.com",
+                    "homepage": "http://vrkansagara.in"
+                }
+            ],
+            "description": "This is simply compress your final out of Larvel Application and serve to the browser.",
+            "homepage": "http://vrkansagara.in",
+            "keywords": [
+                "compress",
+                "laravel"
+            ],
+            "support": {
+                "email": "vrkansagara@gmail.com",
+                "issues": "https://github.com/vrkansagara/LaraOutPress/issues",
+                "source": "https://github.com/vrkansagara/LaraOutPress"
+            },
+            "time": "2022-03-07T08:37:20+00:00"
         },
         {
             "name": "webmozart/assert",

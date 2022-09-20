@@ -15,7 +15,7 @@
     @endisset
     @isset($response)
         <br>
-        <table id="example" class="table">
+        <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>

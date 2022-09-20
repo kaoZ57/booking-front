@@ -14,11 +14,16 @@ class AuthController extends Controller
     public function register_view()
     {
 
+
         return view('auth.register');
     }
 
     public function register(Request $request)
     {
+        Session::forget('token');
+        Session::forget('owner');
+        Session::forget('staff');
+        Session::forget('name');
         // dd($request->name, $request->email, $request->password, $request->password_confirmation,);
         $data = Http::withHeaders(
             ['api_key' => config('app.api_key')]
@@ -48,6 +53,10 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        Session::forget('token');
+        Session::forget('owner');
+        Session::forget('staff');
+        Session::forget('name');
         $data = Http::withHeaders(
             ['api_key' => config('app.api_key')]
         )->post(config('app.api_host') . '/api/v1/auth/login', [
@@ -56,7 +65,7 @@ class AuthController extends Controller
         ]);
 
         $data  = json_decode($data);
-
+        // dd($data);
         if ($data->response->code->key != 101) {
             $message = $data->response->code->message;
             // dd($message);
@@ -81,7 +90,8 @@ class AuthController extends Controller
             }
         }
         // dd(Session::get('owner'), Session::get('staff'));
-        Session::get('token');
+        // Session::get('token');
+        Session::put('name', $dataroles->response->user->name);
 
         return redirect()->route('home');
     }
@@ -91,6 +101,7 @@ class AuthController extends Controller
         Session::forget('token');
         Session::forget('owner');
         Session::forget('staff');
+        Session::forget('name');
         return redirect('/');
     }
 
@@ -147,6 +158,8 @@ class AuthController extends Controller
                     }
                 }
 
+                Session::put('name', $user->name);
+
                 return redirect()->route('home');
             } else {
                 $register = Http::withHeaders(
@@ -177,6 +190,7 @@ class AuthController extends Controller
                 // dd($data);
 
                 Session::put('token', $data->response->token);
+                Session::put('name', $user->name);
 
                 $datarole = Http::withHeaders([
                     'Authorization' => 'Bearer ' . Session::get('token'),

@@ -23,18 +23,18 @@
     @endisset
     @isset($response)
         <br>
-        <table id="example" class="table">
+        <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
                     <th scope="col">รายละเอียด</th>
                     <th scope="col">สถานะ</th>
-                    <th scope="col">สถานะคืน</th>
+                    <th scope="col"style="width: 8%">สถานะคืน</th>
                     <th scope="col">จำนวน</th>
                     @if (Session::get('staff') == 'true')
-                        <th scope="col">แก้ไข</th>
                         <th scope="col">เพิ่มจำนวน</th>
+                        <th scope="col">แก้ไข</th>
                         <th scope="col">ส่งซ่อม</th>
                     @else
                     @endif
@@ -70,10 +70,10 @@
                             {{ $v->amount }}
                         </td>
                         <td>
-                            <center><a class="btn btn-warning" href="{{ url('/item/edit/' . $v->id) }}">แก้ไข</a>
+                            <center><a class="btn btn-primary" href="{{ url('/item/add/stock/' . $v->id) }}">เพิ่ม</a>
                         </td>
                         <td>
-                            <center><a class="btn btn-primary" href="{{ url('/item/add/stock/' . $v->id) }}">เพิ่ม</a>
+                            <center><a class="btn btn-warning" href="{{ url('/item/edit/' . $v->id) }}">แก้ไข</a>
                         </td>
                         <td>
                             <center><a class="btn btn-danger" href="{{ url('/outOfService/add/' . $v->id) }}">ซ่อม</a>
