@@ -21,19 +21,19 @@
 
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-4">
 
             </div>
-            <div class="col">
+            <div class="col-3">
                 <br><br><br><br><br><br><br>
                 <form action="{{ route('booking_add') }}" method="post">
                     @csrf
                     <label for="start_date">เริ่ม:</label>
-                    <input type="datetime-local" id="myDatetimeField" name="start_date" required>
+                    <input class="form-control" type="datetime-local" id="start_date" name="start_date" required>
                     <br>
                     <br>
                     <label for="end_date">คืน:</label>
-                    <input type="datetime-local" name="end_date" required>
+                    <input class="form-control" type="datetime-local" id="end_date" name="end_date" required>
                     <br><br>
                     @isset(request()->message)
                         <p class="text-danger">{{ request()->message }}</p>
@@ -43,7 +43,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col"></div>
+            <div class="col-4"></div>
         </div>
     </div>
     <br><br><br><br><br><br><br>
@@ -51,12 +51,7 @@
 
 <script>
     window.addEventListener("load", function() {
-        var now = new Date();
-        var offset = now.getTimezoneOffset() * 60000;
-        var adjustedDate = new Date(now.getTime() - offset);
-        var formattedDate = adjustedDate.toISOString().substring(0, 16); // For minute precision
-        var datetimeField = document.getElementById("myDatetimeField");
-        datetimeField.value = formattedDate;
-        console.log(formattedDate);
+        $("#start_date").val(moment().add(1, 'hours').format("YYYY-MM-DDTHH:mm"));
+        $("#end_date").val(moment().add(2, 'days').add(1, 'hours').format("YYYY-MM-DDTHH:mm"));
     });
 </script>

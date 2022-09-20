@@ -76,7 +76,7 @@ class BookingController extends Controller
     {
         try {
             // dd($request->start_date, $request->end_date);
-            // dd(date("Y-m-d H:i:s", strtotime($request->start_date)));
+            // dd(date("Y-m-d H:i:s", strtotime($request->start_date)), date("Y-m-d H:i:s", strtotime($request->end_date)));
             $data = Http::withHeaders(
                 [
                     'Authorization' => 'Bearer ' . Session::get('token'),
