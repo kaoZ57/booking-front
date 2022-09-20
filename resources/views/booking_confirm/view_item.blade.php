@@ -49,8 +49,8 @@
                         <th scope="col">จำนวน</th>
                         <th scope="col">คืน</th>
                         <th scope="col">โน้ต</th>
-                        <th scope="col">อนุญาติ</th>
-                        <th scope="col">ไม่อนุญาติ</th>
+                        <th scope="col" style="width: 10%">อนุญาติ</th>
+                        <th scope="col" style="width: 13%">ไม่อนุญาติ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -176,8 +176,8 @@
                                 </div>
                             @endif
 
-                            {{ $o++ }}
-                            {{ $n++ }}
+                            <input value={{ $o++ }} hidden>
+                            <input value={{ $n++ }} hidden>
                         </tr>
                     @endforeach
                 </tbody>

@@ -44,7 +44,7 @@
                             <input name="booking_item_id" value={{ $booking_item->id }} hidden>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary">จอง</button>
+                            <button type="submit" class="btn btn-primary">ยืนยัน</button>
                         </div>
                     </div>
                 </form>

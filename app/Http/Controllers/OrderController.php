@@ -149,6 +149,7 @@ class OrderController extends Controller
                 $item  = json_decode($item);
                 // dd($data->response->booking[0]->booking_item);
                 $booking->response->booking[0]->booking_item[$key]->name = $item->response->item[0]->name;
+                $booking->response->booking[0]->booking_item[$key]->is_not_return = $item->response->item[0]->is_not_return;
             }
 
             if ($data) {

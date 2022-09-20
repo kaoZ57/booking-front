@@ -38,7 +38,10 @@
                     <th scope="col">สถานะ</th>
                     <th scope="col">โน้ตผู้จอง</th>
                     <th scope="col">โน้ตร้าน</th>
+                    <th scope="col">สถานะคืน</th>
                     <th scope="col">จำนวน</th>
+                    <th scope="col">แก้ไข</th>
+                    <th scope="col">ลบ</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +53,41 @@
                         <td>{{ $v->status }}</td>
                         <td>{{ $v->note_user }}</td>
                         <td>{{ $v->note_owner }}</td>
+                        @if ($v->is_not_return == 1)
+                            <td>
+                                <span class="badge badge-danger rounded-pill d-inline">ไม่คืน</span>
+                            </td>
+                        @else
+                            <td>
+                                <span class="badge badge-success rounded-pill d-inline">คืน</span>
+                            </td>
+                        @endif
                         <td>{{ $v->amount }}</td>
+                        @if ($booking->status == 'prepairing')
+                            <td>
+                                <form action="{{ route('order_item_edit_view') }}" method="get">
+                                    <input value={{ $v->id }} name="booking_item_id" hidden />
+                                    <input value={{ $booking->id }} name="booking_id" hidden />
+                                    <button class="btn btn-warning" type="submit">แก้ไข</button>
+                                </form>
+                            </td>
+                        @else
+                            <td><button class="btn btn-warning" type="submit" disabled>แก้ไข</button> </td>
+                        @endif
+
+                        @if ($booking->status == 'prepairing')
+                            <td>
+                                <form action="{{ route('order_item_delete') }}" method="post"
+                                    onclick="return confirm('Are you sure?')">
+                                    @csrf
+                                    <input value={{ $v->id }} name="booking_item_id" hidden />
+                                    <input value={{ $booking->id }} name="booking_id" hidden />
+                                    <button class="btn btn-danger" type="submit">ลบ</button>
+                                </form>
+                            </td>
+                        @else
+                            <td><button class="btn btn-danger" type="submit" disabled>ลบ</button> </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
@@ -82,15 +119,19 @@
                         <td> {{ Str::limit($v->description, 70) }}</td>
                         <td>{{ $v->amount }}</td>
                         @if ($v->is_not_return == 1)
-                            <td class="text-primary">ไม่ต้องคืน</td>
+                            <td>
+                                <center><span class="badge badge-danger rounded-pill d-inline">ไม่คืน</span>
+                            </td>
                         @else
-                            <td class="text-success">คืน </td>
+                            <td>
+                                <center><span class="badge badge-success rounded-pill d-inline">คืน</span>
+                            </td>
                         @endif
 
                         @php($is_have = false)
                         @foreach ($booking->booking_item as $k => $vv)
                             @if ($vv->item_id == $v->id)
-                                {{ $is_have = true }}
+                                @php($is_have = true)
                             @endif
                         @endforeach
 
