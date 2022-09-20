@@ -4,8 +4,8 @@
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
             <a class="navbar-brand me-2" href="{{ route('home') }}">
-                <img src="https://yt3.ggpht.com/ytc/AMLnZu9MdHSLzLsbd2U-tjkyQ4ZElacp32n2XID07_iXyBA=s900-c-k-c0x00ffffff-no-rj"
-                    height="40" alt="booking Logo" loading="lazy" style="margin-top: -1px;" />
+                <img src="{{ asset('img/logo_RMUTI_Kaesad_Flower_2556_RGB.webp') }}" height="40" alt="booking Logo"
+                    loading="lazy" style="margin-top: -1px;" />
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">

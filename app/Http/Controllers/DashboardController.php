@@ -17,15 +17,36 @@ class DashboardController extends Controller
             ]
         )->get(config('app.api_host') . '/api/v1/user/get_all');
         $data  = json_decode($data);
+        // dd($data->response->user);
 
+        foreach ($data->response->user as $key => $value) {
+            $staff_data = Http::withHeaders([
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ])->get(config('app.api_host') . '/api/v1/user/get_current', [
+                "filter" => [
+                    "user_id" => $value->id
+                ]
+            ]);
+
+            $staff_data  = json_decode($staff_data);
+            $data->response->user[$key]->is_staff = "false";
+
+            foreach ($staff_data->response->user->roles as $value) {
+                if ($value->name == 'staff') {
+                    $data->response->user[$key]->is_staff = "true";
+                }
+            }
+        }
+
+        // dd($data);
         if ($data) {
             $message = $data->response->code->message;
             if ($data->response->code->key != 101) {
                 return back();
             } else {
                 $response = $data->response->user;
-                // dd($data->response->user);
-
+                // dd($data->response->user);s
                 return view('dashboard.index', compact('response'));
             }
         } else {
@@ -51,7 +72,7 @@ class DashboardController extends Controller
             if ($data->response->code->key != 101) {
                 return back();
             } else {
-                $this->dashboard_view();
+                return back();
             }
         } else {
             return back();

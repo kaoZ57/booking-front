@@ -11,6 +11,10 @@
             </nav>
         </div>
         <div class="col">
+            <center>
+                <h3>ประวัติการจอง</h3>
+        </div>
+        <div class="col">
             @isset(request()->message)
                 <p class="text-danger">{{ request()->message }}</p>
             @endisset
@@ -23,7 +27,7 @@
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ผู้จอง</th>
-                    <th scope="col">status</th>
+                    <th scope="col">สถานะ</th>
                     <th scope="col">วันเริ่มยืม</th>
                     <th scope="col">วันที่ยืม</th>
                     <th scope="col">วันอนุมัติ</th>

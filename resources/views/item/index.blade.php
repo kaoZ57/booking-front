@@ -11,7 +11,10 @@
             </nav>
         </div>
         <div class="col">
-
+            <center>
+                <h3>จัดการสิ่งของ</h3>
+        </div>
+        <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <a class="btn btn-success me-md-2" href="{{ route('item_add_view') }}" type="button">เพิ่มสิ่งของ</a>
             </div>
@@ -24,18 +27,37 @@
     @isset($response)
         <br>
         <table id="example" class="table align-middle mb-0 bg-white">
+
             <thead class="bg-light">
                 <tr>
-                    <th scope="col">รหัส</th>
-                    <th scope="col">ชื่อ</th>
-                    <th scope="col">รายละเอียด</th>
-                    <th scope="col">สถานะ</th>
-                    <th scope="col"style="width: 8%">สถานะคืน</th>
-                    <th scope="col">จำนวน</th>
+                    <th scope="col">
+                        รหัส
+                    </th>
+                    <th scope="col">
+                        ชื่อ
+                    </th>
+                    <th scope="col">
+                        รายละเอียด
+                    </th>
+                    <th scope="col">
+                        <center>สถานะ
+                    </th>
+                    <th scope="col"style="width: 8%">
+                        <center>สถานะคืน
+                    </th>
+                    <th scope="col">
+                        <center>จำนวน
+                    </th>
                     @if (Session::get('staff') == 'true')
-                        <th scope="col">เพิ่มจำนวน</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ส่งซ่อม</th>
+                        <th scope="col">
+                            <center>เพิ่มจำนวน
+                        </th>
+                        <th scope="col">
+                            <center>แก้ไข
+                        </th>
+                        <th scope="col">
+                            <center>ส่งซ่อม
+                        </th>
                     @else
                     @endif
                 </tr>

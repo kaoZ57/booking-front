@@ -36,7 +36,7 @@
                 <tr>
                     <th scope="col">รหัส</th>
                     <th scope="col">ชื่อ</th>
-                    <th scope="col">status</th>
+                    <th scope="col">สถานะ</th>
                     <th scope="col">โน้ตผู้จอง</th>
                     <th scope="col">โน้ตร้าน</th>
                     <th scope="col">จำนวน</th>

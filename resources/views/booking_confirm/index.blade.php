@@ -11,6 +11,10 @@
             </nav>
         </div>
         <div class="col">
+            <center>
+                <h3>อนุมัติรายการจอง</h3>
+        </div>
+        <div class="col">
             @isset(request()->message)
                 <p class="text-danger">{{ request()->message }}</p>
             @endisset
@@ -21,13 +25,30 @@
         <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
-                    <th scope="col">รหัส</th>
-                    <th scope="col">ผู้จอง</th>
-                    <th scope="col">status</th>
-                    <th scope="col">วันเริ่มยืม</th>
-                    <th scope="col">วันที่ยืม</th>
-                    <th scope="col">วันอนุมัติ</th>
-                    <th scope="col">ดู</th>
+                    <th scope="col">
+                        <center>รหัส
+                    </th>
+                    <th scope="col">
+                        <center>ผู้จอง
+                    </th>
+                    <th scope="col">
+                        <center>สถานะ
+                    </th>
+                    <th scope="col">
+                        <center>วันเริ่มยืม
+                    </th>
+                    <th scope="col">
+                        <center>วันที่ยืม
+                    </th>
+                    <th scope="col">
+                        <center>วันอนุมัติ
+                    </th>
+                    <th scope="col">
+                        <center>จำนวนที่จอง
+                    </th>
+                    <th scope="col">
+                        <center>ดู
+                    </th>
                     {{-- <th scope="col">อนุญาติ</th>
                     <th scope="col">ไม่อนุญาติ</th> --}}
                 </tr>
@@ -37,14 +58,29 @@
                 @foreach ($response as $k => $v)
                     <tr>
                         {{-- @if ($v->status != 'complete' && $v->status != 'prepairing') --}}
-                        <th scope="row">{{ $i++ }}</th>
-                        <td>{{ Str::limit($v->name, 20) }}</td>
-                        <td>{{ $v->status }}</td>
-                        <td>{{ $v->start_date }}</td>
-                        <td>{{ $v->end_date }}</td>
-                        <td>{{ $v->verify_date }}</td>
+                        <th scope="row">
+                            <center>{{ $i++ }}
+                        </th>
                         <td>
-                            <a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a>
+                            <center>{{ Str::limit($v->name, 20) }}
+                        </td>
+                        <td>
+                            <center>{{ $v->status }}
+                        </td>
+                        <td>
+                            <center>{{ $v->start_date }}
+                        </td>
+                        <td>
+                            <center>{{ $v->end_date }}
+                        </td>
+                        <td>
+                            <center>{{ $v->verify_date }}
+                        </td>
+                        <td>
+                            <center>{{ count($v->booking_item) }}
+                        </td>
+                        <td>
+                            <center><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a>
                         </td>
                         {{-- @else
                         @endif --}}

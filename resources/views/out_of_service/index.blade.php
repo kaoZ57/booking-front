@@ -1,15 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a aria-current>Out of service</a></li>
-        </ol>
-    </nav>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        {{-- <a class="btn btn-success me-md-2" href="{{ route('item_add_view') }}" type="button">เพิ่มสิ่งของ</a> --}}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a aria-current>Out of service</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col">
+            <center>
+                <h3>จัดการรายการเซอร์วิส</h3>
+        </div>
+        <div class="col">
+            @isset(request()->message)
+                <p class="text-danger">{{ request()->message }}</p>
+            @endisset
+        </div>
     </div>
+
     @isset($message)
         <p class="text-danger">{{ $message }}</p>
     @endisset

@@ -12,24 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-    {{-- <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/"> --}}
-    <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css">
-
-    {{-- <script src="/Areas/Development/dist/libraries/jquery/jquery.js"></script>
-    <script src="/Areas/Development/dist/modular/js/core.js" type="text/javascript"></script>
-    <link href="/Areas/Development/dist/modular/css/core.css" rel="stylesheet" type="text/css">
-    <link href="/Areas/Development/dist/modular/css/datepicker.css" rel="stylesheet" type="text/css">
-    <link href="/Areas/Development/dist/modular/css/timepicker.css" rel="stylesheet" type="text/css">
-    <link href="/Areas/Development/dist/modular/css/datetimepicker.css" rel="stylesheet" type="text/css">
-    <script src="/Areas/Development/dist/modular/js/datepicker.js"></script>
-    <script src="/Areas/Development/dist/modular/js/timepicker.js"></script>
-    <script src="/Areas/Development/dist/modular/js/datetimepicker.js"></script> --}}
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -131,17 +115,7 @@
             });
         });
     </script>
-    {{-- <script src="//code.jquery.com/jquery-1.12.3.js"></script>
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --}}
 </body>
-{{-- <script>
-    $(document).ready(function() {
-        $('#table').DataTable();
-    });
-</script> --}}
 <script>
     var myModal = document.getElementById('myModal')
     var myInput = document.getElementById('myInput')

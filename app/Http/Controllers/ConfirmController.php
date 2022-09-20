@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
+use function PHPSTORM_META\type;
 
 class ConfirmController extends Controller
 {
@@ -199,8 +200,24 @@ class ConfirmController extends Controller
     }
     function confirm_status_item(Request $request)
     {
+        // dd($request->all());
+        $formdata = array();
 
-        $note = ($request->note == null) ? "ให้ยืม" : $request->note;
+        for ($i = 1; $i <= count($request->all()); $i++) {
+            if ($request['id' . strval($i)] == null) {
+                break;
+            } elseif ($request['status_id' . strval($i)] == 5 || $request['status_id' . strval($i)] == 9) {
+                continue;
+            } else {
+                $note = (!$request['note_owner' . strval($i)]) ? "ยืม" : $request['note_owner' . strval($i)];
+
+                $formdata[$i]["id"] = $request['id' . strval($i)];
+                $formdata[$i]["note_owner"] = $note;
+                $formdata[$i]["status_id"] = ($request['radio' . strval($i)] == 0) ? 5 : $request['status_id' . strval($i)] + 1;
+            }
+        }
+        // dd($formdata);
+
         // dd($request->id, $note, $request->status_id + 1);
         $data  = Http::withHeaders(
             [
@@ -208,11 +225,7 @@ class ConfirmController extends Controller
                 'api_key' => config('app.api_key')
             ]
         )->patch(config('app.api_host') . '/api/v1/booking/update_items_by_staff', [
-            "booking_item" => [[
-                "id" => $request->id,
-                "note_owner" => $note,
-                "status_id" => $request->status_id + 1
-            ]]
+            "booking_item" => $formdata
         ]);
         $data  = json_decode($data);
         if ($data) {
