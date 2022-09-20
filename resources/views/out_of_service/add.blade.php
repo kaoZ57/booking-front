@@ -26,11 +26,13 @@
                 <form action="{{ route('outOfService_add') }}" method="post">
                     @csrf
                     <input type="number" name="id" value={{ $response[0]->id }} hidden>
-                    <div class="mb-3">
+                    <div class="form-outline">
+                        <textarea class="form-control" data-mdb-showcounter="true" maxlength="255" type="text"
+                            id="exampleFormControlTextarea1" rows="3" name="note" required></textarea>
                         <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
-                        <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="note" required></textarea>
+                        <div class="form-helper"></div>
                     </div>
-
+                    <br>
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <label for="inputPassword6" class="col-form-label">จำนวน</label>

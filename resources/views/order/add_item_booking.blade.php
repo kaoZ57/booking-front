@@ -34,13 +34,14 @@
                             <span id="passwordHelpInline" class="form-text">
                                 ชิ้น
                             </span>
+                            <label for="passwordHelpInline" class="form-label">note</label>
                         </div>
                         <input type="number" name="id" value={{ $response[0]->id }} hidden>
                         <input type="number" name="bookingid" value={{ $bookingid }} hidden>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">note</label>
+                        <div class="form-outline">
                             <input type="text" class="form-control" id="exampleFormControlInput1" name="note">
+                            <label for="exampleFormControlInput1" class="form-label">note</label>
                         </div>
 
                         <div class="col-auto">

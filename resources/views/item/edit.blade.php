@@ -27,17 +27,20 @@
                 <form action="{{ route('item_edit') }}" method="post">
                     @csrf
                     <input type="number" name="id" value={{ $response[0]->id }} hidden>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">ชื่อ</label>
+                    <div class="form-outline">
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
                             value='{{ $response[0]->name }}' required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
-                        <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="description"
-                            required>{{ $response[0]->description }}</textarea>
-                    </div>
+                        <label for="exampleFormControlInput1" class="form-label">ชื่อ</label>
 
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        <textarea class="form-control" data-mdb-showcounter="true" maxlength="255" type="text"
+                            id="exampleFormControlTextarea1" rows="3" name="description" required>{{ $response[0]->description }}</textarea>
+                        <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
+                        <div class="form-helper"></div>
+                    </div>
+                    <br>
                     <label for="exampleFormControlTextarea1" class="form-label">เปิดให้จองไหม</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="is_active" id="flexRadioDefault1" value=1

@@ -35,10 +35,11 @@
                                 ชิ้น
                             </span>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">note</label>
+                        <div class="form-outline">
                             <input type="text" class="form-control" id="exampleFormControlInput1" name="note"
                                 value={{ $booking_item->note_user }} required>
+                            <label for="exampleFormControlInput1" class="form-label">note</label>
+
                             <input type="number" name="booking_id" value={{ $booking_item->booking_id }} hidden>
                             <input name="booking_item_id" value={{ $booking_item->id }} hidden>
                         </div>

@@ -24,17 +24,18 @@
 
                 <form action="{{ route('item_add') }}" method="post">
                     @csrf
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">ชื่อ</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
-                            maxlength="100" required>
+                    <div class="form-outline">
+                        <input type="text" class="form-control" id="form12" name="name" maxlength="100" required>
+                        <label id="form12"class="form-label">ชื่อ</label>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
-                        <textarea class="form-control" type="text" id="exampleFormControlTextarea1" rows="3" name="description"
-                            maxlength="100"></textarea>
+                    <br>
+                    <div class="form-outline">
+                        <textarea class="form-control" data-mdb-showcounter="true" maxlength="255" type="text" id="form12" rows="3"
+                            name="description" maxlength="100"></textarea>
+                        <label class="form-label" id="form12">รายละเอียด</label>
+                        <div class="form-helper"></div>
                     </div>
-
+                    <br>
                     <label for="exampleFormControlTextarea1" class="form-label">เปิดให้จองไหม</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="is_active" id="flexRadioDefault1" value=1
