@@ -49,8 +49,8 @@
                     <th scope="col">
                         <center>ดู
                     </th>
-                    {{-- <th scope="col">อนุญาติ</th>
-                    <th scope="col">ไม่อนุญาติ</th> --}}
+                    {{-- <th scope="col">อนุญาต</th>
+                    <th scope="col">ไม่อนุญาต</th> --}}
                 </tr>
             </thead>
             <tbody>

@@ -8,8 +8,6 @@
     {{-- <link href="/dist/output.css" rel="stylesheet"> --}}
     {{-- <title>{{ config('app.name', 'Booking API') }}</title> --}}
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
@@ -17,8 +15,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    {{-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" /> --}}
+
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
     <style>
@@ -58,7 +55,7 @@
         </main>
     </div>
 
-    <br><br><br>
+    {{-- <br><br><br>
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted" style="flex-shrink: 0;">
         <!-- Copyright -->
@@ -73,7 +70,9 @@
             and Atiwan all right reserved
         </div>
         <!-- Copyright -->
-    </footer>
+    </footer> --}}
+
+    <!-- Datetime-local -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
@@ -87,6 +86,7 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
 
+    <!-- Datatable -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>

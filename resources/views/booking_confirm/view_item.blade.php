@@ -49,8 +49,10 @@
                         <th scope="col">จำนวน</th>
                         <th scope="col">คืน</th>
                         <th scope="col">โน้ต</th>
-                        <th scope="col" style="width: 10%">อนุญาติ</th>
-                        <th scope="col" style="width: 13%">ไม่อนุญาติ</th>
+                        <th scope="col" style="width: 10%">อนุญาต</th>
+                        <th scope="col" style="width: 13%">ไม่อนุญาต</th>
+                        <th scope="col" style="width: 13%">รอพิจารณา</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -87,16 +89,24 @@
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o) }} value="1" disabled />
-                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาติ</label>
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
                                         {{-- {{ 'inlineRadio' . strval($o) }} --}}
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o + 1) }} value="0" checked disabled />
                                         <label class="form-check-label"
-                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาติ</label>
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
                                         {{-- {{ 'option' . strval($o + 1) }} --}}
                                         <input value={{ $o++ }} hidden>
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
                                     </td>
                                 </div>
                             @elseif ($v->status == 'returned')
@@ -112,16 +122,24 @@
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o) }} value="1" checked disabled />
-                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาติ</label>
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
                                         {{-- {{ 'inlineRadio' . strval($o) }} --}}
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o + 1) }} value="0" disabled />
                                         <label class="form-check-label"
-                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาติ</label>
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
                                         {{-- {{ 'option' . strval($o + 1) }} --}}
                                         <input value={{ $o++ }} hidden>
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
                                     </td>
                                 </div>
                             @elseif ($v->status == 'approve' || $v->status == 'lending')
@@ -137,18 +155,26 @@
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o) }} value="1" checked />
-                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาติ</label>
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
                                         {{-- {{ 'inlineRadio' . strval($o) }} --}}
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o + 1) }} value="0" disabled />
                                         <label class="form-check-label"
-                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาติ</label>
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
                                         {{-- {{ 'option' . strval($o + 1) }} --}}
                                         <input value={{ $o++ }} hidden>
                                     </td>
                                 </div>
+                                <td>
+                                    <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                        id={{ 'inlineRadio' . strval($o + 2) }} value="2" disabled />
+                                    <label class="form-check-label" for={{ 'inlineRadio' . strval($o + 2) }}
+                                        disabled>รอพิจารณา</label>
+                                    {{-- {{ 'option' . strval($o + 1) }} --}}
+                                    <input value={{ $o += 2 }} hidden>
+                                </td>
                             @else
                                 <td>
                                     <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
@@ -161,17 +187,25 @@
                                 <div class="form-check form-check-inline">
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
-                                            id={{ 'inlineRadio' . strval($o) }} value="1" checked />
-                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาติ</label>
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
                                         {{-- {{ 'inlineRadio' . strval($o) }} --}}
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
                                             id={{ 'inlineRadio' . strval($o + 1) }} value="0" />
                                         <label class="form-check-label"
-                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาติ</label>
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
                                         {{-- {{ 'option' . strval($o + 1) }} --}}
-                                        <input value={{ $o++ }} hidden>
+                                        {{-- <input value={{ $o++ }} hidden> --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" checked />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
                                     </td>
                                 </div>
                             @endif

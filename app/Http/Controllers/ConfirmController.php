@@ -229,9 +229,19 @@ class ConfirmController extends Controller
                 } else {
                     $note = (!$request['note_owner' . strval($i)]) ? "ยืม" : $request['note_owner' . strval($i)];
 
-                    $formdata[$i]["id"] = $request['id' . strval($i)];
-                    $formdata[$i]["note_owner"] = $note;
-                    $formdata[$i]["status_id"] = ($request['radio' . strval($i)] == 0) ? 5 : $request['status_id' . strval($i)] + 1;
+
+                    if ($request['radio' . strval($i)] == 0) {
+                        $formdata[$i]["id"] = $request['id' . strval($i)];
+                        $formdata[$i]["note_owner"] = $note;
+                        $formdata[$i]["status_id"] = 5;
+                    } elseif ($request['radio' . strval($i)] == 2) {
+                        continue;
+                    } else {
+                        $formdata[$i]["id"] = $request['id' . strval($i)];
+                        $formdata[$i]["note_owner"] = $note;
+                        $formdata[$i]["status_id"] = $request['status_id' . strval($i)] + 1;
+                    }
+                    // $formdata[$i]["status_id"] = ($request['radio' . strval($i)] == 0) ? 5 : $request['status_id' . strval($i)] + 1;
                 }
             }
             // dd($formdata);
