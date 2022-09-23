@@ -245,6 +245,9 @@ class ConfirmController extends Controller
                 }
             }
             // dd($formdata);
+            if (!$formdata) {
+                return back()->with('message', 'ไม่มีข้อมูล');
+            }
 
             // dd($request->id, $note, $request->status_id + 1);
             $data  = Http::withHeaders(

@@ -387,7 +387,7 @@ class OrderController extends Controller
                 if ($data->response->code->key != 101) {
                     return back();
                 } else {
-                    return back();
+                    return redirect()->route('order_view');
                 }
             } else {
                 return back();
