@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h5>จอง {{ $response[0]->name }}</h5>
+            <h5>แก้ไข {{ $response[0]->name }}</h5>
             <br><br><br><br><br><br><br>
         </div>
         <div class="row">
@@ -15,7 +15,7 @@
                     <p class="text-danger">{{ $message }}</p>
                 @endisset
 
-                <form action="{{ route('order_item_add') }}" method="post">
+                <form action="{{ route('order_item_edit') }}" method="post">
                     @csrf
                     <div class="row g-3 align-items-center">
                         <label for="inputPassword5" class="form-label">{{ $response[0]->description }}</label>
@@ -28,24 +28,23 @@
                         <div class="col-auto">
                             <input type="number" id="inputPassword6" class="form-control"
                                 aria-describedby="passwordHelpInline" name="amount" min="1"
-                                max='{{ $response[0]->amount }}' required>
+                                max='{{ $response[0]->amount }}' value={{ $booking_item->amount }} required>
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
                                 ชิ้น
                             </span>
-                            <label for="passwordHelpInline" class="form-label">note</label>
                         </div>
-                        <input type="number" name="id" value={{ $response[0]->id }} hidden>
-                        <input type="number" name="bookingid" value={{ $bookingid }} hidden>
-
                         <div class="form-outline">
-                            <input type="text" class="form-control" id="exampleFormControlInput1" name="note">
+                            <input type="text" class="form-control" id="exampleFormControlInput1" name="note"
+                                value={{ $booking_item->note_user }} required>
                             <label for="exampleFormControlInput1" class="form-label">note</label>
-                        </div>
 
+                            <input type="number" name="booking_id" value={{ $booking_item->booking_id }} hidden>
+                            <input name="booking_item_id" value={{ $booking_item->id }} hidden>
+                        </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary">จอง</button>
+                            <button type="submit" class="btn btn-primary">ยืนยัน</button>
                         </div>
                     </div>
                 </form>

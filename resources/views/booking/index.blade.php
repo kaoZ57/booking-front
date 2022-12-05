@@ -11,45 +11,47 @@
             </nav>
         </div>
         <div class="col">
-            @isset(request()->massage)
-                <p class="text-danger">{{ request()->massage }}</p>
-            @endisset
+
         </div>
     </div>
-    @isset($response)
-        <div class="container">
-            <div class="row">
-                <h5>เพิ่มรายการ จอง</h5>
-                <br><br><br><br><br><br><br>
-            </div>
-            <div class="row">
-                <div class="col">
 
-                </div>
-                <div class="col">
+    <div class="container">
+        <div class="row">
+            <h5>เพิ่มรายการ จอง</h5>
 
-                    @isset($massage)
-                        <p class="text-danger">{{ $massage }}</p>
-                    @endisset
-
-                    <form action="{{ route('booking_add') }}" method="post">
-                        @csrf
-                        <label for="birthday">เริ่ม:</label>
-                        <input type="date" id="birthday" name="start_date">
-                        <br>
-                        <br>
-                        <label for="birthday">คืน:</label>
-                        <input type="date" id="birthday" name="end_date">
-
-                        <br> <br>
-                        <div class="col-12">
-                            <button class="btn btn-primary" type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col"></div>
-            </div>
         </div>
-    @endisset
+        <div class="row">
+            <div class="col-4">
 
+            </div>
+            <div class="col-3">
+                <br><br><br><br><br><br><br>
+                <form action="{{ route('booking_add') }}" method="post">
+                    @csrf
+                    <label for="start_date">เริ่ม:</label>
+                    <input class="form-control" type="datetime-local" id="start_date" name="start_date" required>
+                    <br>
+                    <br>
+                    <label for="end_date">คืน:</label>
+                    <input class="form-control" type="datetime-local" id="end_date" name="end_date" required>
+                    <br><br>
+                    @isset(request()->message)
+                        <p class="text-danger">{{ request()->message }}</p>
+                    @endisset
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
 @endsection
+
+<script>
+    window.addEventListener("load", function() {
+        $("#start_date").val(moment().add(1, 'hours').format("YYYY-MM-DDTHH:mm"));
+        $("#end_date").val(moment().add(2, 'days').add(1, 'hours').format("YYYY-MM-DDTHH:mm"));
+    });
+</script>

@@ -17,9 +17,13 @@ class AuthAPI
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::has('token')) {
-            return $next($request);
+        try {
+            if (Session::has('token')) {
+                return $next($request);
+            }
+            return redirect()->route('login_view');
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return redirect()->route('login_view');
     }
 }

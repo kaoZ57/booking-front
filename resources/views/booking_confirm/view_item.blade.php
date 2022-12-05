@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Booking Confirm</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('confirm_view') }}">Booking Confirm</a></li>
                     <li class="breadcrumb-item active" aria-current="page">View</li>
                 </ol>
             </nav>
@@ -18,37 +18,246 @@
             </div> --}}
         </div>
     </div>
-    @isset($massage)
-        <p class="text-danger">{{ $massage }}</p>
-    @endisset
+    {{-- @isset(session('message'))
+        <h3 class="text-danger">{{ session('message') }}</h3>
+    @endisset --}}
     @isset($response)
-        <h3>สถานะ {{ $response->status }}</h3>
-        <h3>เริ่ม {{ $response->start_date }}</h3>
-        <h3>วันคืน {{ $response->end_date }}</h3>
-        <table id="example" class="table">
-            <thead>
-                <tr>
-                    <th scope="col">รหัส</th>
-                    <th scope="col">ชื่อ</th>
-                    <th scope="col">status</th>
-                    <th scope="col">โน้ตผู้จอง</th>
-                    <th scope="col">โน้ตร้าน</th>
-                    <th scope="col">จำนวน</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($response->booking_item as $k => $v)
+        <div class="row">
+            <div class="col">
+                <h3>สถานะ {{ $response->status }}</h3>
+                <h3>เริ่ม {{ $response->start_date }}</h3>
+                <h3>วันคืน {{ $response->end_date }}</h3>
+            </div>
+            <div class="col">
+
+                {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a class="btn btn-success me-md-2" href="{{ route('item_add_view') }}" type="button">เพิ่มสิ่งของ</a>
+                </div> --}}
+            </div>
+        </div>
+        <br>
+        <form action="{{ route('confirm_status_item') }}" method="post">
+            @csrf
+            <table id="example" class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
                     <tr>
-                        <th scope="row">{{ $v->id }}</th>
-                        <td>{{ $v->name }}</td>
-                        <td>{{ $v->status }}</td>
-                        <td>{{ $v->note_user }}</td>
-                        <td>{{ $v->note_owner }}</td>
-                        <td>{{ $v->amount }}</td>
+                        <th scope="col">รหัส</th>
+                        <th scope="col">ชื่อ</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">โน้ตผู้จอง</th>
+                        <th scope="col">โน้ตร้าน</th>
+                        <th scope="col">จำนวน</th>
+                        <th scope="col" style="width: 3%">คืน</th>
+                        <th scope="col">โน้ต</th>
+                        <th scope="col" style="width: 10%">อนุญาต</th>
+                        <th scope="col" style="width: 12%">ไม่อนุญาต</th>
+                        <th scope="col" style="width: 12%">รอพิจารณา</th>
+
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @php($i = 1)
+                    @php($o = 1)
+                    @php($n = 1)
+                    @foreach ($response->booking_item as $k => $v)
+                        <tr>
+                            <th scope="row">{{ $i++ }}</th>
+                            <td>{{ $v->name }}</td>
+                            <td>{{ $v->status }}</td>
+                            <td>{{ Str::limit($v->note_user, 20) }}</td>
+                            <td>{{ $v->note_owner }}</td>
+                            <td>{{ $v->amount }}</td>
+                            @if ($v->is_not_return == 1)
+                                <td class="text-primary">
+                                    <span class="badge badge-danger rounded-pill d-inline">ไม่คืน</span>
+                                </td>
+                            @else
+                                <td class="text-success">
+                                    <span class="badge badge-success rounded-pill d-inline">คืน</span>
+                                </td>
+                            @endif
+                            @if ($v->status == 'reject')
+                                <td>
+                                    <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
+                                    <input type="number" name={{ 'status_id' . strval($n) }} value={{ $v->status_id }}
+                                        hidden>
+                                    {{-- <input type="number" name="status_id" value={{ $v->status_id }} hidden> --}}
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                        name={{ 'note_owner' . strval($n) }} value={{ $v->note_owner }} readonly>
+                                </td>
+                                <div class="form-check form-check-inline">
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" disabled />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
+                                        {{-- {{ 'inlineRadio' . strval($o) }} --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 1) }} value="0" checked disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o++ }} hidden>
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
+                                    </td>
+                                </div>
+                            @elseif ($v->status == 'returned')
+                                <td>
+                                    <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
+                                    <input type="number" name={{ 'status_id' . strval($n) }} value={{ $v->status_id }}
+                                        hidden>
+                                    {{-- <input type="number" name="status_id" value={{ $v->status_id }} hidden> --}}
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                        name={{ 'note_owner' . strval($n) }} value={{ $v->note_owner }} readonly>
+                                </td>
+                                <div class="form-check form-check-inline">
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" checked disabled />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
+                                        {{-- {{ 'inlineRadio' . strval($o) }} --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 1) }} value="0" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o++ }} hidden>
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
+                                    </td>
+                                </div>
+                            @elseif ($v->status == 'approve' || $v->status == 'lending')
+                                <td>
+                                    <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
+                                    <input type="number" name={{ 'status_id' . strval($n) }} value={{ $v->status_id }}
+                                        hidden>
+                                    {{-- <input type="number" name="status_id" value={{ $v->status_id }} hidden> --}}
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                        name={{ 'note_owner' . strval($n) }} value={{ $v->note_owner }} readonly>
+                                </td>
+                                <div class="form-check form-check-inline">
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
+                                        {{-- {{ 'inlineRadio' . strval($o) }} --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 1) }} value="0" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o++ }} hidden>
+                                    </td>
+                                </div>
+                                <td>
+                                    <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                        id={{ 'inlineRadio' . strval($o + 2) }} value="2" checked />
+                                    <label class="form-check-label" for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                    {{-- {{ 'option' . strval($o + 1) }} --}}
+                                    <input value={{ $o += 2 }} hidden>
+                                </td>
+                            @elseif ($v->status == 'approve' || ($v->status == 'lending' && $response->status == 'pending'))
+                                <td>
+                                    <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
+                                    <input type="number" name={{ 'status_id' . strval($n) }} value={{ $v->status_id }}
+                                        hidden>
+                                    {{-- <input type="number" name="status_id" value={{ $v->status_id }} hidden> --}}
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                        name={{ 'note_owner' . strval($n) }} value={{ $v->note_owner }} readonly>
+                                </td>
+                                <div class="form-check form-check-inline">
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" disabled />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
+                                        {{-- {{ 'inlineRadio' . strval($o) }} --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 1) }} value="0" disabled />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o++ }} hidden>
+                                    </td>
+                                </div>
+                                <td>
+                                    <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                        id={{ 'inlineRadio' . strval($o + 2) }} value="2" checked />
+                                    <label class="form-check-label" for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                    {{-- {{ 'option' . strval($o + 1) }} --}}
+                                    <input value={{ $o += 2 }} hidden>
+                                </td>
+                            @else
+                                <td>
+                                    <input type="number" name={{ 'id' . strval($n) }} value={{ $v->id }} hidden>
+                                    <input type="number" name={{ 'status_id' . strval($n) }} value={{ $v->status_id }}
+                                        hidden>
+                                    {{-- <input type="number" name="status_id" value={{ $v->status_id }} hidden> --}}
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                        name={{ 'note_owner' . strval($n) }} value={{ $v->note_owner }}>
+                                </td>
+                                <div class="form-check form-check-inline">
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o) }} value="1" />
+                                        <label class="form-check-label" for={{ 'inlineRadio' . strval($o) }}>อนุญาต</label>
+                                        {{-- {{ 'inlineRadio' . strval($o) }} --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 1) }} value="0" />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 1) }}>ไม่อนุญาต</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        {{-- <input value={{ $o++ }} hidden> --}}
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="radio" name={{ 'radio' . strval($n) }}
+                                            id={{ 'inlineRadio' . strval($o + 2) }} value="2" checked />
+                                        <label class="form-check-label"
+                                            for={{ 'inlineRadio' . strval($o + 2) }}>รอพิจารณา</label>
+                                        {{-- {{ 'option' . strval($o + 1) }} --}}
+                                        <input value={{ $o += 2 }} hidden>
+                                    </td>
+                                </div>
+                            @endif
+
+                            <input value={{ $o++ }} hidden>
+                            <input value={{ $n++ }} hidden>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @if ($response->status == 'complete')
+            @else
+                <br>
+                <div class="row">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <td><button type="submit" class="btn btn-primary">ยืนยัน</button></td>
+                    </div>
+                </div>
+            @endif
+
+        </form>
     @endisset
 
 @endsection

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <br><br><br><br><br>
     <div class="container">
         <div class="row">
-            <br><br><br><br><br><br><br>
         </div>
         <div class="row">
             <div class="col">
@@ -17,29 +17,34 @@
                     <div class="card-body">
                         <form action="{{ route('register') }}" method="POST">
                             @csrf
-                            <div class="mb-3">
+                            <div class="form-outline">
+                                <input type="text" class="form-control" name="name" required>
                                 <label for="exampleInputEmail1" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name">
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <br>
+                            <div class="form-outline">
                                 <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="email">
-                                @isset($massage)
+                                    aria-describedby="emailHelp" name="email" required>
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                @isset($message)
                                     <div id="emailHelp" class="form-text">
-                                        {{ $massage }}
+                                        {{ $message }}
                                     </div>
                                 @endisset
                             </div>
-                            <div class="mb-3">
+                            <br>
+                            <div class="form-outline">
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                    required>
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password Confirmation</label>
+                            <br>
+                            <div class="form-outline">
                                 <input type="password" class="form-control" id="exampleInputPassword1"
-                                    name="password_confirmation">
+                                    name="password_confirmation" required>
+                                <label for="exampleInputPassword1" class="form-label">Password Confirmation</label>
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -50,4 +55,5 @@
             </div>
         </div>
     </div>
+    <br><br><br><br><br><br>
 @endsection

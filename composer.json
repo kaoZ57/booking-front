@@ -12,8 +12,10 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
-        "laravelcollective/html": "^6.3"
+        "laravelcollective/html": "^6.3",
+        "vrkansagara/lara-out-press": "^2.1"
     },
     "require-dev": {
         "brackets/admin-generator": "^6.2",

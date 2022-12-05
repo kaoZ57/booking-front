@@ -10,34 +10,47 @@ class HomeController extends Controller
 {
     public static function home_view()
     {
-        $storedata = Http::withHeaders(
-            [
-                'Authorization' => 'Bearer ' . Session::get('token'),
-                'api_key' => config('app.api_key')
-            ]
-        )->get(config('app.api_host') . '/api/v1/store/get_store');
+        try {
+            $storedata = Http::withHeaders(
+                [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'api_key' => config('app.api_key')
+                ]
+            )->get(config('app.api_host') . '/api/v1/store/get_store');
 
-        $storedata  = json_decode($storedata);
+            $storedata  = json_decode($storedata);
 
-        $storedata = $storedata->response->store;
-        // dd($storedata);
+            // dd($storedata);
 
-        $itemdata = Http::withHeaders(
-            [
-                'Authorization' => 'Bearer ' . Session::get('token'),
-                'api_key' => config('app.api_key')
-            ]
-        )->get(config('app.api_host') . '/api/v1/item/get_items', [
-            "filter" => [
-                "is_active" => 1,
-                "orderBy" => 'DESC'
-            ]
-        ]);
+            $itemdata = Http::withHeaders(
+                [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'api_key' => config('app.api_key')
+                ]
+            )->get(config('app.api_host') . '/api/v1/item/get_items', [
+                "filter" => [
+                    "is_active" => 1,
+                    "orderBy" => 'DESC'
+                ]
+            ]);
 
-        $itemdata  = json_decode($itemdata);
-        $itemdata = $itemdata->response->item;
-        // dd($itemdata);
+            $itemdata  = json_decode($itemdata);
+            $storedata = $storedata->response->store;
 
-        return view('welcome', compact('storedata', 'itemdata'));
+            if ($itemdata && $storedata) {
+                $message = $itemdata->response->code->message;
+                if ($itemdata->response->code->key != 101) {
+                    return back();
+                } else {
+                    // dd($itemdata);
+                    $itemdata = $itemdata->response->item;
+                    return view('welcome', compact('storedata', 'itemdata'));
+                }
+            } else {
+                return back();
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

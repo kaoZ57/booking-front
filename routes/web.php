@@ -20,6 +20,9 @@ use App\Http\Controllers\ConfirmController;
 |
 */
 
+Route::get('/redirect', [AuthController::class, 'redirectToProvider'])->name('redirect');
+Route::get('/callback', [AuthController::class, 'handleProviderCallback']);
+
 Route::get('/register', [AuthController::class, 'register_view'])->name('register_view');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -42,6 +45,11 @@ Route::group(['middleware' => ['authapi']], function () {
     Route::post('/order/view/booking/add/item', [OrderController::class, 'order_item_add_view'])->name('order_item_add_view');
     Route::post('/order/booking/add/item', [OrderController::class, 'order_item_add'])->name('order_item_add');
     Route::get('/order/view/item/{id}', [OrderController::class, 'order_item_view'])->name('order_item_view');
+    Route::get('/order/view/edit/booking/{id}', [OrderController::class, 'order_edit_booking_view'])->name('order_edit_booking_view');
+    Route::post('/order/view/edit/booking', [OrderController::class, 'order_edit_booking'])->name('order_edit_booking');
+    Route::get('/order/view/edit/item', [OrderController::class, 'order_item_edit_view'])->name('order_item_edit_view');
+    Route::post('/order/view/edit/item', [OrderController::class, 'order_item_edit'])->name('order_item_edit');
+    Route::post('/order/view/delete/item', [OrderController::class, 'order_item_delete'])->name('order_item_delete');
 
     Route::get('/item', [ItemController::class, 'item_view'])->name('item_view');
 
@@ -64,6 +72,10 @@ Route::group(['middleware' => ['authapi']], function () {
         Route::get('/confirm/view/item/{id}', [ConfirmController::class, 'confirm_view_item'])->name('confirm_view_item');
         Route::post('/confirm/status', [ConfirmController::class, 'confirm_status'])->name('confirm_status');
         Route::post('/confirm/reject', [ConfirmController::class, 'confirm_reject'])->name('confirm_reject');
+        Route::post('/confirm/status/item', [ConfirmController::class, 'confirm_status_item'])->name('confirm_status_item');
+        Route::post('/confirm/reject/item', [ConfirmController::class, 'confirm_reject_item'])->name('confirm_reject_item');
+
+        Route::get('/history', [ConfirmController::class, 'history'])->name('history');
     });
 
     Route::group(['middleware' => ['isOwner']], function () {

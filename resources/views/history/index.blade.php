@@ -6,13 +6,13 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a aria-current>Out of service</a></li>
+                    <li class="breadcrumb-item"><a aria-current>history</a></li>
                 </ol>
             </nav>
         </div>
         <div class="col">
             <center>
-                <h3>จัดการรายการเซอร์วิส</h3>
+                <h3>ประวัติการจอง</h3>
         </div>
         <div class="col">
             @isset(request()->message)
@@ -20,43 +20,38 @@
             @endisset
         </div>
     </div>
-
-    @isset($message)
-        <p class="text-danger">{{ $message }}</p>
-    @endisset
     @isset($response)
         <br>
         <table id="example" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th scope="col">รหัส</th>
-                    <th scope="col">item</th>
-                    <th scope="col">โน้ต</th>
-                    <th scope="col">จำนวน</th>
-                    <th scope="col">นำกลับมาใช้งาน</th>
+                    <th scope="col">ผู้จอง</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col">วันเริ่มยืม</th>
+                    <th scope="col">วันที่ยืม</th>
+                    <th scope="col">วันอนุมัติ</th>
+                    <th scope="col">จำนวนที่จอง</th>
+                    <th scope="col">ดู</th>
                 </tr>
             </thead>
             <tbody>
-
                 @php($i = 1)
                 @foreach ($response as $k => $v)
                     <tr>
                         <th scope="row">{{ $i++ }}</th>
-                        <td>{{ $v->name }}</td>
-                        <td> {{ Str::limit($v->note, 70) }}</td>
-                        <td>{{ $v->amount }}</td>
+                        <td>{{ Str::limit($v->name, 20) }}</td>
+                        <td>{{ $v->status }}</td>
+                        <td>{{ $v->start_date }}</td>
+                        <td>{{ $v->end_date }}</td>
+                        <td>{{ $v->verify_date }}</td>
                         <td>
-                            <form action="{{ route('outOfService_edit') }}" method="post">
-                                @csrf
-                                <input type="number" name="id" value={{ $v->id }} hidden>
-                                <button type="submit" class="btn btn-success">เพื่มกลับ</button>
-                            </form>
+                            <center>{{ count($v->booking_item) }}
                         </td>
+                        <td><a class="btn btn-primary" href="{{ url('/confirm/view/item/' . $v->id) }}">ดู</a></td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
     @endisset
-
 @endsection

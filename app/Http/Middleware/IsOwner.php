@@ -18,18 +18,22 @@ class IsOwner
      */
     public function handle(Request $request, Closure $next)
     {
-        $data = Http::withHeaders([
-            'Authorization' => 'Bearer ' . Session::get('token'),
-            'api_key' => config('app.api_key')
-        ])->get(config('app.api_host') . '/api/v1/user/get_current');
+        try {
+            $data = Http::withHeaders([
+                'Authorization' => 'Bearer ' . Session::get('token'),
+                'api_key' => config('app.api_key')
+            ])->get(config('app.api_host') . '/api/v1/user/get_current');
 
-        $data  = json_decode($data);
+            $data  = json_decode($data);
 
-        foreach ($data->response->user->roles as $value) {
-            if ($value->name == 'owner') {
-                return $next($request);
+            foreach ($data->response->user->roles as $value) {
+                if ($value->name == 'owner') {
+                    return $next($request);
+                }
             }
+            return back()->withInput();
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return back()->withInput();
     }
 }
